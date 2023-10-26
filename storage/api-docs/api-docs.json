@@ -2,6 +2,16 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Time control API",
+        "description": "Este API permite gestionar y contabilizar el tiempo que dedicamos a proyectos",
+        "contact": {
+            "name": "Soporte API",
+            "url": "https://escuela.it/contacto",
+            "email": "contacto@escuela.it"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/license/mit/"
+        },
         "version": "0.0"
     },
     "paths": {

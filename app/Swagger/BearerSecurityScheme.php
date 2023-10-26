@@ -1,6 +1,8 @@
 <?php
 namespace App\Swagger;
 
+// Esta es una forma de definir el esquema de seguridad. Otra es el el archivo de configuracion.
+
 use OpenApi\Annotations as OA;
 
 /**

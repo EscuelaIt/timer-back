@@ -56,24 +56,10 @@
                 "operationId": "logoutUser",
                 "parameters": [
                     {
-                        "name": "Accept",
-                        "in": "header",
-                        "description": "Header to indicate the response format, should be application/json",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "application/json"
-                        }
+                        "$ref": "#/components/parameters/acceptJsonHeader"
                     },
                     {
-                        "name": "X-Requested-With",
-                        "in": "header",
-                        "description": "Header to indicate the requested with parameter",
-                        "required": true,
-                        "schema": {
-                            "type": "string",
-                            "default": "XMLHttpRequest"
-                        }
+                        "$ref": "#/components/parameters/requestedWith"
                     }
                 ],
                 "responses": {
@@ -86,7 +72,7 @@
                 },
                 "security": [
                     {
-                        "sanctum": []
+                        "BearerAuth": []
                     }
                 ]
             }
@@ -173,6 +159,28 @@
                 }
             }
         },
+        "parameters": {
+            "acceptJsonHeader": {
+                "name": "Accept",
+                "in": "header",
+                "description": "Header to indicate the response format, should be application/json",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "application/json"
+                }
+            },
+            "requestedWith": {
+                "name": "X-Requested-With",
+                "in": "header",
+                "description": "Header to indicate the requested with parameter",
+                "required": true,
+                "schema": {
+                    "type": "string",
+                    "default": "XMLHttpRequest"
+                }
+            }
+        },
         "securitySchemes": {
             "BearerAuth": {
                 "type": "http",
@@ -181,19 +189,10 @@
             },
             "sanctum": {
                 "type": "apiKey",
-                "description": "Enter token in format (Bearer <token>)",
+                "description": "Enter token in format: \"Bearer {token}\"",
                 "name": "Authorization",
                 "in": "header"
             }
-        }
-    },
-    "security": {
-        "bearer": {
-            "type": "http",
-            "description": "Authorization token obtained from logging",
-            "name": "Authorization",
-            "in": "header",
-            "scheme": "bearer"
         }
     }
 }

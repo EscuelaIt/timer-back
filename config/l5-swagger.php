@@ -201,13 +201,6 @@ return [
                 
             ],
             'security' => [
-                'bearer' => [
-                    'type' => 'http',
-                    'description' => 'Authorization token obtained from logging',
-                    'name' => 'Authorization',
-                    'in' => 'header',
-                    'scheme' => 'bearer',
-                ],
             ],
         ],
 

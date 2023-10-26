@@ -64,6 +64,16 @@
                             "type": "string",
                             "default": "application/json"
                         }
+                    },
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "Header to indicate the requested with parameter",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
                     }
                 ],
                 "responses": {
@@ -76,7 +86,7 @@
                 },
                 "security": [
                     {
-                        "bearer": []
+                        "sanctum": []
                     }
                 ]
             }
@@ -168,6 +178,12 @@
                 "type": "http",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
+            },
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },

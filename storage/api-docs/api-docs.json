@@ -206,7 +206,7 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "type": "object"
+                                            "$ref": "#/components/schemas/Customer"
                                         }
                                     },
                                     "type": "object"
@@ -216,6 +216,9 @@
                     },
                     "400": {
                         "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
                     },
                     "401": {
                         "$ref": "#/components/responses/UnauthenticatedResponse"
@@ -300,6 +303,22 @@
                                 },
                                 "token": {
                                     "description": "Token de autenticación",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "NotAuthorizedResponse": {
+                "description": "Respuesta el usuario no está autorizado a realizar esta acción",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "NotAuthorizedResponse",
                                     "type": "string"
                                 }
                             },

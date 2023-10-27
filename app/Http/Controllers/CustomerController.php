@@ -88,8 +88,7 @@ class CustomerController extends Controller
      *         @OA\Property(property="message", type="string", description="Mensaje de respuesta"),
      *         @OA\Property(
      *              property="data",
-     *              type="object",
-     *              @OA\Schema(ref="#/components/schemas/Customer")
+     *              ref="#/components/schemas/Customer"
      *         )
      *     ),
      *  ),
@@ -98,9 +97,14 @@ class CustomerController extends Controller
      *      description="Error de validación",
      *      ref="#/components/responses/ValidationErrorResponse"
      *  ),
+     * @OA\Response(
+     *      response=403,
+     *      description="No autorizado",
+     *      ref="#/components/responses/NotAuthorizedResponse"
+     *  ),
      *  @OA\Response(
      *      response=401,
-     *      description="No autorizado",
+     *      description="No autenticado",
      *      ref="#/components/responses/UnauthenticatedResponse"
      *  ),
      *  @OA\Response(
@@ -116,10 +120,14 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
+        if($user->cannot('create', Customer::class())) {
+            return $this->sendError('No estás autorizado para realizar esta acción', 403);
+        }
+
         $validateCustomer = Validator::make($request->all(), $this->customerValidationRules);
-        
         if($validateCustomer->fails()){
-            return $this->sendError(
+            return $this->sendValidationError(
                 'Ha ocurrido un error de validación',
                 $validateCustomer->errors()
             );

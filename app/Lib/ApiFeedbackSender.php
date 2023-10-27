@@ -11,10 +11,16 @@ trait ApiFeedbackSender {
     ], $status);
   }
 
-  protected function sendError($message, $errors, $status = 400) {
+  protected function sendValidationError($message, $errors, $status = 400) {
     return response()->json([
       'message' => $message,
       'errors' => $errors,
+    ], $status);
+  }
+
+  protected function sendError($message, $status = 403) {
+    return response()->json([
+      'message' => $message,
     ], $status);
   }
 }

@@ -187,7 +187,7 @@
                     "description": "Objeto de cliente a crear",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
                                 "$ref": "#/components/schemas/Customer"
                             }
@@ -259,10 +259,90 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Customer"
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Customer"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener un cliente concreto",
+                "description": "Obtener un objeto de un cliente que corresponda con un identificador dado",
+                "operationId": "updateCustomer",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CustomerIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del cliente a actualizar",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Customer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
                     },
                     "404": {
                         "$ref": "#/components/responses/NotFoundResponse"
@@ -293,7 +373,7 @@
                 ],
                 "properties": {
                     "id": {
-                        "description": "ID único del cliente. Al crear el usuario no se debe enviar el identificador, pues se generará en la creación.",
+                        "description": "ID único del cliente. Al crear o actualizar el usuario no se usará el identificador",
                         "type": "integer"
                     },
                     "name": {

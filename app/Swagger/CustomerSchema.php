@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(
  *         property="id",
  *         type="integer",
- *         description="ID único del cliente. Al crear el usuario no se debe enviar el identificador, pues se generará en la creación."
+ *         description="ID único del cliente. Al crear o actualizar el usuario no se usará el identificador"
  *     ),
  *     @OA\Property(
  *         property="name",

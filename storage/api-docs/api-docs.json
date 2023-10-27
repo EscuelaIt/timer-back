@@ -110,8 +110,8 @@
                     "200": {
                         "$ref": "#/components/responses/AuthResponse"
                     },
-                    "401": {
-                        "description": "Error de validación"
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
                     }
                 }
             }
@@ -154,6 +154,68 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener la lista de los clientes de un usuario",
+                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
+                "operationId": "createCustomer",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Objeto de cliente a crear",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El cliente se ha creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
                     },
                     "401": {
                         "$ref": "#/components/responses/UnauthenticatedResponse"
@@ -255,6 +317,32 @@
                                 "message": {
                                     "description": "Unauthenticated",
                                     "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ValidationErrorResponse": {
+                "description": "Respuesta cuando se ha encontrado un error de validación",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Validation error message",
+                                    "type": "string"
+                                },
+                                "errors": {
+                                    "description": "Detalles específicos sobre los errores de validación.",
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
                                 }
                             },
                             "type": "object"

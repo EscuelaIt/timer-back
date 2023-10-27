@@ -37,7 +37,11 @@ class RegisterController extends Controller
      *         response=200, 
      *         ref="#/components/responses/AuthResponse"
      *     ),
-     *     @OA\Response(response=401, description="Error de validación")
+     *     @OA\Response(
+     *       response=400,
+     *       description="Error de validación",
+     *       ref="#/components/responses/ValidationErrorResponse"
+     *     )
      * )
      */
 
@@ -48,7 +52,7 @@ class RegisterController extends Controller
             return response()->json([
                 'message' => 'Ha ocurrido un error de validación',
                 'errors' => $validateUser->errors()
-            ], 401);
+            ], 400);
         }
 
         $user = User::create([

@@ -115,10 +115,88 @@
                     }
                 }
             }
+        },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener la lista de los clientes de un usuario",
+                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
+                "operationId": "getUserCustomers",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes enviada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Customer"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "Customer": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único del cliente. Al crear el usuario no se debe enviar el identificador, pues se generará en la creación.",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Nombre del cliente",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Correo electrónico del cliente",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "telephone": {
+                        "description": "Teléfono de contacto del cliente",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "required": [
                     "name",
@@ -160,6 +238,22 @@
                                 },
                                 "token": {
                                     "description": "Token de autenticación",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "UnauthenticatedResponse": {
+                "description": "Respuesta cuando el endpoint necesita autenticación y no se ha podio verificar al usuario",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Unauthenticated",
                                     "type": "string"
                                 }
                             },

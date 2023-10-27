@@ -297,7 +297,7 @@
                     "customer"
                 ],
                 "summary": "Obtener un cliente concreto",
-                "description": "Obtener un objeto de un cliente que corresponda con un identificador dado",
+                "description": "Actualizar un cliente que corresponda con un identificador dado",
                 "operationId": "updateCustomer",
                 "parameters": [
                     {
@@ -352,6 +352,44 @@
                     },
                     "401": {
                         "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Borrar un cliente",
+                "description": "Borrar un cliente indicado en el identificador de la URL",
+                "operationId": "deleteCustomer",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CustomerIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El cliente se ha borrado"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
                     },
                     "500": {
                         "description": "Error de servidor"

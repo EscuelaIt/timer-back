@@ -214,7 +214,7 @@ class CustomerController extends Controller
      *  path="/api/customers/{id}",
      *  tags={"customer"},
      *  summary="Obtener un cliente concreto",
-     *  description="Obtener un objeto de un cliente que corresponda con un identificador dado",
+     *  description="Actualizar un cliente que corresponda con un identificador dado",
      *  operationId="updateCustomer",
      *  @OA\Parameter(ref="#/components/parameters/CustomerIdParameter"),
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
@@ -281,8 +281,6 @@ class CustomerController extends Controller
             return $this->sendError('No estás autorizado para realizar esta acción', 403);
         }
 
-        info($request->all());
-
         $validateCustomer = Validator::make($request->all(), $this->customerValidationRules);
         if($validateCustomer->fails()){
             return $this->sendValidationError(
@@ -300,10 +298,53 @@ class CustomerController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *  path="/api/customers/{id}",
+     *  tags={"customer"},
+     *  summary="Borrar un cliente",
+     *  description="Borrar un cliente indicado en el identificador de la URL",
+     *  operationId="deleteCustomer",
+     *  @OA\Parameter(ref="#/components/parameters/CustomerIdParameter"),
+     *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
+     *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
+     *  @OA\Response(
+     *      response=200,
+     *      description="El cliente se ha borrado"
+     *  ),
+     *  @OA\Response(
+     *      response=401,
+     *      description="No autorizado",
+     *      ref="#/components/responses/UnauthenticatedResponse"
+     *  ),
+     *  @OA\Response(
+     *      response=404,
+     *      description="No existe ese cliente",
+     *      ref="#/components/responses/NotFoundResponse"
+     *  ),
+     *  @OA\Response(
+     *      response=500,
+     *      description="Error de servidor",
+     *  ),
+     *  security={
+     *       {"BearerAuth": {}}
+     *  }
+     * )
      */
     public function destroy(string $id)
     {
-        //
+        $user = Auth::user();
+
+        $customer = Customer::find($id);
+        if(! $customer) {
+            return $this->sendError('No existe este cliente', 404);
+        }
+
+        if($user->cannot('delete', $customer)) {
+            return $this->sendError('No estás autorizado para realizar esta acción', 403);
+        }
+
+        $customer->delete();
+
+        return $this->sendSuccess('Cliente borrado', null);
     }
 }

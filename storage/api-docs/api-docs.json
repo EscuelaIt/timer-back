@@ -233,6 +233,56 @@
                     }
                 ]
             }
+        },
+        "/api/customers/{id}": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener un cliente concreto",
+                "description": "Obtener un objeto de un cliente que corresponda con un identificador dado",
+                "operationId": "getCustomer",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CustomerIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Customer"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -327,6 +377,22 @@
                     }
                 }
             },
+            "NotFoundResponse": {
+                "description": "Respuesta el usuario cuando no existe este recurso",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "NotFoundResponse",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
             "UnauthenticatedResponse": {
                 "description": "Respuesta cuando el endpoint necesita autenticación y no se ha podio verificar al usuario",
                 "content": {
@@ -389,6 +455,15 @@
                 "schema": {
                     "type": "string",
                     "default": "XMLHttpRequest"
+                }
+            },
+            "CustomerIdParameter": {
+                "name": "id",
+                "in": "path",
+                "description": "ID del cliente que se desea obtener",
+                "required": true,
+                "schema": {
+                    "type": "integer"
                 }
             }
         },

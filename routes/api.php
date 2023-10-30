@@ -9,12 +9,17 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
 use App\Http\Controllers\Project\ProjectStoreController;
+use App\Http\Controllers\Category\CategoryListController;
+use App\Http\Controllers\Category\CategoryShowController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
 use App\Http\Controllers\Project\ProjectUpdateController;
+use App\Http\Controllers\Category\CategoryStoreController;
 use App\Http\Controllers\Customer\CustomerStoreController;
 use App\Http\Controllers\Project\ProjectDestroyController;
+use App\Http\Controllers\Category\CategoryUpdateController;
 use App\Http\Controllers\Customer\CustomerUpdateController;
+use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 
 /*
@@ -51,4 +56,12 @@ Route::prefix('/projects')->middleware('auth:sanctum')->group(function() {
     Route::get('/{id}', [ProjectShowController::class, 'show']);
     Route::put('/{id}', [ProjectUpdateController::class, 'update']);
     Route::delete('/{id}', [ProjectDestroyController::class, 'destroy']);
+});
+
+Route::prefix('/categories')->middleware('auth:sanctum')->group(function() {
+    Route::get('', [CategoryListController::class, 'index']);
+    Route::post('', [CategoryStoreController::class, 'store']);
+    Route::get('/{id}', [CategoryShowController::class, 'show']);
+    Route::put('/{id}', [CategoryUpdateController::class, 'update']);
+    Route::delete('/{id}', [CategoryDestroyController::class, 'destroy']);
 });

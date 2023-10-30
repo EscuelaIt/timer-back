@@ -24,6 +24,11 @@ class User extends Authenticatable
         return $this->hasManyThrough(Project::class, Customer::class);
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

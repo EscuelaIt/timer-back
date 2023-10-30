@@ -24,7 +24,7 @@ use OpenApi\Annotations as OA;
  *     ),
 *      @OA\Property(
  *         property="customer_id",
- *         type="string",
+ *         type="integer",
  *         description="Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer"
  *     ),
  * )

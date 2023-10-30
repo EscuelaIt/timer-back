@@ -28,6 +28,11 @@ use OpenApi\Annotations as OA;
  *         type="string",
  *         description="Teléfono de contacto del cliente"
  *     ),
+ *     @OA\Property(
+ *         property="user_id",
+ *         type="integer",
+ *         description="Identificador del usuario asociado. Clave foránea que referencia a la entidad User. Se extrae automáticamente del usuario autenticado, no hace falta indicarlo."
+ *     ),
  * )
  */
 

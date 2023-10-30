@@ -519,6 +519,65 @@
                     }
                 ]
             }
+        },
+        "/api/projects/{id}": {
+            "get": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Obtener un proyecto concreto",
+                "description": "Obtener un objeto de proyecto que corresponda con un identificador dado",
+                "operationId": "getProject",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/ProjectIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -544,6 +603,10 @@
                     "telephone": {
                         "description": "Teléfono de contacto del cliente",
                         "type": "string"
+                    },
+                    "user_id": {
+                        "description": "Identificador del usuario asociado. Clave foránea que referencia a la entidad User. Se extrae automáticamente del usuario autenticado, no hace falta indicarlo.",
+                        "type": "integer"
                     }
                 },
                 "type": "object"
@@ -568,7 +631,7 @@
                     },
                     "customer_id": {
                         "description": "Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer",
-                        "type": "string"
+                        "type": "integer"
                     }
                 },
                 "type": "object"
@@ -722,6 +785,15 @@
                 "name": "id",
                 "in": "path",
                 "description": "ID del cliente que se desea obtener",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "ProjectIdParameter": {
+                "name": "id",
+                "in": "path",
+                "description": "ID del projecto que se desea obtener",
                 "required": true,
                 "schema": {
                     "type": "integer"

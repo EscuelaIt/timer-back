@@ -21,7 +21,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project): bool
     {
-        return $project->customer->user_id == $user_id;
+        return $project->customer->user_id == $user->id;
     }
 
     /**
@@ -37,7 +37,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project): bool
     {
-        return $project->customer->user_id == $user_id;
+        return $project->customer->user_id == $user->id;
     }
 
     /**
@@ -45,7 +45,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project): bool
     {
-        return $project->customer->user_id == $user_id;
+        return $project->customer->user_id == $user->id;
     }
 
     /**
@@ -53,7 +53,7 @@ class ProjectPolicy
      */
     public function restore(User $user, Project $project): bool
     {
-        return $project->customer->user_id == $user_id;
+        return $project->customer->user_id == $user->id;
     }
 
     /**
@@ -61,6 +61,6 @@ class ProjectPolicy
      */
     public function forceDelete(User $user, Project $project): bool
     {
-        return $project->customer->user_id == $user_id;
+        return $project->customer->user_id == $user->id;
     }
 }

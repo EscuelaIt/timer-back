@@ -1,5 +1,5 @@
 <?php
-namespace App\Swagger;
+namespace App\Swagger\GlobalDefinitions;
 
 use OpenApi\Annotations as OA;
 

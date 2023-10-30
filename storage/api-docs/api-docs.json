@@ -340,8 +340,8 @@
                 "tags": [
                     "customer"
                 ],
-                "summary": "Obtener la lista de los clientes de un usuario",
-                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
+                "summary": "Añadir un cliente",
+                "description": "Crear un cliente en la base de datos asociado a un usuario",
                 "operationId": "createCustomer",
                 "parameters": [
                     {
@@ -401,6 +401,124 @@
                     }
                 ]
             }
+        },
+        "/api/projects": {
+            "get": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Obtener la lista de los proyectos de un usuario",
+                "description": "Devuelve un array de objetos Project que haya dado de alta un usuario",
+                "operationId": "getUserProjects",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de proyectos enviada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Project"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Crear un proyecto",
+                "description": "Crear un proyecto en la base de datos asociado a un cliente",
+                "operationId": "createProject",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Objeto de proyecto a crear",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Project"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El proyecto se ha creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -411,7 +529,7 @@
                 ],
                 "properties": {
                     "id": {
-                        "description": "ID único del cliente. Al crear o actualizar el usuario no se usará el identificador",
+                        "description": "ID único del cliente. Al crear o actualizar el cliente no se usará el identificador",
                         "type": "integer"
                     },
                     "name": {
@@ -425,6 +543,31 @@
                     },
                     "telephone": {
                         "description": "Teléfono de contacto del cliente",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Project": {
+                "required": [
+                    "name",
+                    "customer_id"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único del projecto. Al crear o actualizar no se usará el identificador",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Nombre del projecto",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "Descripción del proyecto",
+                        "type": "string"
+                    },
+                    "customer_id": {
+                        "description": "Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer",
                         "type": "string"
                     }
                 },
@@ -459,26 +602,6 @@
             }
         },
         "responses": {
-            "AuthResponse": {
-                "description": "Usuario autenticado, se devuelve el token",
-                "content": {
-                    "application/json": {
-                        "schema": {
-                            "properties": {
-                                "message": {
-                                    "description": "Mensaje de respuesta",
-                                    "type": "string"
-                                },
-                                "token": {
-                                    "description": "Token de autenticación",
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        }
-                    }
-                }
-            },
             "NotAuthorizedResponse": {
                 "description": "Respuesta el usuario no está autorizado a realizar esta acción",
                 "content": {
@@ -546,6 +669,26 @@
                                             "type": "string"
                                         }
                                     }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "AuthResponse": {
+                "description": "Usuario autenticado, se devuelve el token",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "message": {
+                                    "description": "Mensaje de respuesta",
+                                    "type": "string"
+                                },
+                                "token": {
+                                    "description": "Token de autenticación",
+                                    "type": "string"
                                 }
                             },
                             "type": "object"

@@ -1,5 +1,5 @@
 <?php
-namespace App\Swagger;
+namespace App\Swagger\Customer;
 
 use OpenApi\Annotations as OA;
 
@@ -10,7 +10,7 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(
  *         property="id",
  *         type="integer",
- *         description="ID único del cliente. Al crear o actualizar el usuario no se usará el identificador"
+ *         description="ID único del cliente. Al crear o actualizar el cliente no se usará el identificador"
  *     ),
  *     @OA\Property(
  *         property="name",

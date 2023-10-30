@@ -10,6 +10,8 @@ class Project extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'customer_id'];
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

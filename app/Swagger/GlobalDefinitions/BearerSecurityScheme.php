@@ -1,5 +1,5 @@
 <?php
-namespace App\Swagger;
+namespace App\Swagger\GlobalDefinitions;
 
 // Esta es una forma de definir el esquema de seguridad. Otra es el el archivo de configuracion.
 

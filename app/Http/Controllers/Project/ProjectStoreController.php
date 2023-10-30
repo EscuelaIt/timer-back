@@ -1,44 +1,46 @@
 <?php
 
-namespace App\Http\Controllers\Customer;
+namespace App\Http\Controllers\Project;
 
+use App\Models\Project;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Lib\ApiFeedbackSender;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Project\ControlProjectTrait;
 
-class CustomerStoreController extends Controller
+class ProjectStoreController extends Controller
 {
-    use ApiFeedbackSender, ControlCustomerTrait;
+    use ApiFeedbackSender, ControlProjectTrait;
     
     /**
      * @OA\Post(
-     *  path="/api/customers",
-     *  tags={"customer"},
-     *  summary="Añadir un cliente",
-     *  description="Crear un cliente en la base de datos asociado a un usuario",
-     *  operationId="createCustomer",
+     *  path="/api/projects",
+     *  tags={"project"},
+     *  summary="Crear un proyecto",
+     *  description="Crear un proyecto en la base de datos asociado a un cliente",
+     *  operationId="createProject",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="Objeto de cliente a crear",
+     *      description="Objeto de proyecto a crear",
      *      @OA\MediaType(
      *          mediaType="application/x-www-form-urlencoded",
-     *          @OA\Schema(ref="#/components/schemas/Customer")
+     *          @OA\Schema(ref="#/components/schemas/Project")
      *      )
      *  ),
      *  @OA\Response(
      *      response=200, 
-     *      description="El cliente se ha creado con éxito",
+     *      description="El proyecto se ha creado con éxito",
      *      @OA\JsonContent(
      *         type="object",
      *         @OA\Property(property="message", type="string", description="Mensaje de respuesta"),
      *         @OA\Property(
      *              property="data",
-     *              ref="#/components/schemas/Customer"
+     *              ref="#/components/schemas/Project"
      *         )
      *     ),
      *  ),
@@ -71,28 +73,32 @@ class CustomerStoreController extends Controller
      {
          $user = Auth::user();
  
-         if($user->cannot('create', Customer::class)) {
-             return $this->sendError('No estás autorizado para realizar esta acción', 403);
+         if($user->cannot('create', Project::class)) {
+            return $this->sendError('No estás autorizado para realizar esta acción', 403);
          }
  
-         $validateCustomer = Validator::make($request->all(), $this->customerValidationRules);
+         $validateCustomer = Validator::make($request->all(), $this->projectValidationRules);
          if($validateCustomer->fails()){
              return $this->sendValidationError(
                  'Ha ocurrido un error de validación',
                  $validateCustomer->errors()
              );
          }
+
+         $customer = Customer::find($request->customer_id);
+         if($customer->user_id != $user->id) {
+            return $this->sendError('No puedes crear proyectos en un cliente que no te pertenece', 403);
+         }
  
-         $customer = Customer::create([
+         $project = Project::create([
              'name' => $request->name,
-             'email' => $request->email,
-             'telephone' => $request->telephone,
-             'user_id' => $user->id,
+             'description' => $request->description,
+             'customer_id' => $request->customer_id,
          ]);
  
          return $this->sendSuccess(
-             'El cliente se ha creado',
-             $customer
+             'El projecto se ha creado',
+             $project
          );
      }
 }

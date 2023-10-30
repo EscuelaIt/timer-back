@@ -11,7 +11,9 @@ use App\Http\Controllers\Project\ProjectShowController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
+use App\Http\Controllers\Project\ProjectUpdateController;
 use App\Http\Controllers\Customer\CustomerStoreController;
+use App\Http\Controllers\Project\ProjectDestroyController;
 use App\Http\Controllers\Customer\CustomerUpdateController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 
@@ -47,4 +49,6 @@ Route::prefix('/projects')->middleware('auth:sanctum')->group(function() {
     Route::get('', [ProjectListController::class, 'index']);
     Route::post('', [ProjectStoreController::class, 'store']);
     Route::get('/{id}', [ProjectShowController::class, 'show']);
+    Route::put('/{id}', [ProjectUpdateController::class, 'update']);
+    Route::delete('/{id}', [ProjectDestroyController::class, 'destroy']);
 });

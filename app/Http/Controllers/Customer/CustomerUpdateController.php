@@ -19,7 +19,7 @@ class CustomerUpdateController extends Controller
      * @OA\Put(
      *  path="/api/customers/{id}",
      *  tags={"customer"},
-     *  summary="Obtener un cliente concreto",
+     *  summary="Actualiza un cliente",
      *  description="Actualizar un cliente que corresponda con un identificador dado",
      *  operationId="updateCustomer",
      *  @OA\Parameter(ref="#/components/parameters/CustomerIdParameter"),

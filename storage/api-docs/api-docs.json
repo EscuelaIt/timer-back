@@ -178,7 +178,7 @@
                 "tags": [
                     "customer"
                 ],
-                "summary": "Obtener un cliente concreto",
+                "summary": "Actualiza un cliente",
                 "description": "Actualizar un cliente que corresponda con un identificador dado",
                 "operationId": "updateCustomer",
                 "parameters": [
@@ -402,6 +402,174 @@
                 ]
             }
         },
+        "/api/projects/{id}": {
+            "get": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Obtener un proyecto concreto",
+                "description": "Obtener un objeto de proyecto que corresponda con un identificador dado",
+                "operationId": "getProject",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/ProjectIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Actualizar un proyecto",
+                "description": "Actualizar un proyecto que corresponda con un identificador dado",
+                "operationId": "updateProject",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/ProjectIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del proyecto a actualizar",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Project"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Project"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "project"
+                ],
+                "summary": "Borrar un proyecto",
+                "description": "Borrar un proyecto indicado en el identificador de la URL",
+                "operationId": "deleteProject",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/ProjectIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El proyecto se ha borrado"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/projects": {
             "get": {
                 "tags": [
@@ -502,65 +670,6 @@
                     },
                     "400": {
                         "$ref": "#/components/responses/ValidationErrorResponse"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/NotAuthorizedResponse"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/UnauthenticatedResponse"
-                    },
-                    "500": {
-                        "description": "Error de servidor"
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/api/projects/{id}": {
-            "get": {
-                "tags": [
-                    "project"
-                ],
-                "summary": "Obtener un proyecto concreto",
-                "description": "Obtener un objeto de proyecto que corresponda con un identificador dado",
-                "operationId": "getProject",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/ProjectIdParameter"
-                    },
-                    {
-                        "$ref": "#/components/parameters/acceptJsonHeader"
-                    },
-                    {
-                        "$ref": "#/components/parameters/requestedWith"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Operación exitosa",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Mensaje de respuesta",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Project"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "$ref": "#/components/responses/NotFoundResponse"
                     },
                     "403": {
                         "$ref": "#/components/responses/NotAuthorizedResponse"

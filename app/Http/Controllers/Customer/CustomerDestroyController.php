@@ -58,6 +58,10 @@ class CustomerDestroyController extends Controller
             return $this->sendError('No estás autorizado para realizar esta acción', 403);
         }
 
+        if($customer->has_related_data) {
+            return $this->sendError('Este cliente tiene datos asociados así que no se puede borrar', 403);
+        }
+
         $customer->delete();
 
         return $this->sendSuccess('Cliente borrado', null);

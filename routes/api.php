@@ -6,6 +6,11 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Customer\CustomerListController;
+use App\Http\Controllers\Customer\CustomerShowController;
+use App\Http\Controllers\Customer\CustomerStoreController;
+use App\Http\Controllers\Customer\CustomerUpdateController;
+use App\Http\Controllers\Customer\CustomerDestroyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +32,10 @@ Route::post('/auth/register', [RegisterController::class, 'registerUser']);
 Route::post('/auth/login', [LoginController::class, 'loginUser']);
 Route::middleware('auth:sanctum')->get('/auth/logout', [LogoutController::class, 'logoutUser']);
 
-Route::apiResource('customers', CustomerController::class)->middleware('auth:sanctum');
+Route::prefix('/customers')->middleware('auth:sanctum')->group(function() {
+    Route::get('', [CustomerListController::class, 'index']);
+    Route::post('', [CustomerStoreController::class, 'store']);
+    Route::get('/{id}', [CustomerShowController::class, 'show']);
+    Route::put('/{id}', [CustomerUpdateController::class, 'update']);
+    Route::delete('/{id}', [CustomerDestroyController::class, 'destroy']);
+});

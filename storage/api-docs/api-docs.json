@@ -116,124 +116,6 @@
                 }
             }
         },
-        "/api/customers": {
-            "get": {
-                "tags": [
-                    "customer"
-                ],
-                "summary": "Obtener la lista de los clientes de un usuario",
-                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
-                "operationId": "getUserCustomers",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/acceptJsonHeader"
-                    },
-                    {
-                        "$ref": "#/components/parameters/requestedWith"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Lista de clientes enviada con éxito",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Mensaje de respuesta",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Customer"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/UnauthenticatedResponse"
-                    },
-                    "500": {
-                        "description": "Error de servidor"
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
-            },
-            "post": {
-                "tags": [
-                    "customer"
-                ],
-                "summary": "Obtener la lista de los clientes de un usuario",
-                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
-                "operationId": "createCustomer",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/acceptJsonHeader"
-                    },
-                    {
-                        "$ref": "#/components/parameters/requestedWith"
-                    }
-                ],
-                "requestBody": {
-                    "description": "Objeto de cliente a crear",
-                    "required": true,
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "$ref": "#/components/schemas/Customer"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "El cliente se ha creado con éxito",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Mensaje de respuesta",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "$ref": "#/components/schemas/Customer"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "$ref": "#/components/responses/ValidationErrorResponse"
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/NotAuthorizedResponse"
-                    },
-                    "401": {
-                        "$ref": "#/components/responses/UnauthenticatedResponse"
-                    },
-                    "500": {
-                        "description": "Error de servidor"
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/customers/{id}": {
             "get": {
                 "tags": [
@@ -390,6 +272,124 @@
                     },
                     "404": {
                         "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener la lista de los clientes de un usuario",
+                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
+                "operationId": "getUserCustomers",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de clientes enviada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Customer"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "customer"
+                ],
+                "summary": "Obtener la lista de los clientes de un usuario",
+                "description": "Devuelve un array de objetos Customer que haya dado de alta un usuario",
+                "operationId": "createCustomer",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Objeto de cliente a crear",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Customer"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El cliente se ha creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Customer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
                     },
                     "500": {
                         "description": "Error de servidor"

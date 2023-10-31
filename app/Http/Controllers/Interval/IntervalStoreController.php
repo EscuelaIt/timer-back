@@ -27,10 +27,14 @@ class IntervalStoreController extends Controller
      *  @OA\RequestBody(
      *      required=true,
      *      description="Para crear el intervalo de trabajo solo se envía opcionalmente el identificador de proyecto, si es que hay.",
-     *      @OA\MediaType(
-     *          mediaType="application/x-www-form-urlencoded",
-     *          @OA\Schema(ref="#/components/schemas/IntervalCreation")
-     *      )
+     *      @OA\JsonContent(
+     *         type="object",
+     *         @OA\Property(
+     *             property="project_id",
+     *             type="integer",
+     *             description="Identificador del proyecto, opcional."
+     *         ),
+     *     )
      *  ),
      *  @OA\Response(
      *      response=200, 

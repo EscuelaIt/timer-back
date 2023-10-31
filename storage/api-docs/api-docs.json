@@ -1005,9 +1005,15 @@
                     "description": "Para crear el intervalo de trabajo solo se envía opcionalmente el identificador de proyecto, si es que hay.",
                     "required": true,
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/IntervalCreation"
+                                "properties": {
+                                    "project_id": {
+                                        "description": "Identificador del proyecto, opcional.",
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
                             }
                         }
                     }

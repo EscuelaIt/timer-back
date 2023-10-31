@@ -28,19 +28,19 @@ class IntervalAttachCategoryController extends Controller
      *      required=true,
      *      description="Información sobre la categoría y el estado que se pretende aplicar al intervalo.",
      *      @OA\JsonContent(
- *             type="object",
- *             @OA\Property(
- *                 property="category_id",
- *                 type="integer",
- *                 description="Identificador de la categoría."
- *             ),
- *             @OA\Property(
- *                 property="attached",
- *                 type="boolean",
- *                 default=false,
- *                 description="Determina si está adjunto o no. Si no se proporciona, se considera 'false'."
- *             )
- *         )
+     *         type="object",
+     *         @OA\Property(
+     *             property="category_id",
+     *             type="integer",
+     *             description="Identificador de la categoría."
+     *         ),
+     *         @OA\Property(
+     *             property="attached",
+     *             type="boolean",
+     *             default=false,
+     *             description="Determina si está adjunto o no. Si no se proporciona, se considera 'false'."
+     *         )
+     *     )
      *  ),
      *  @OA\Response(
      *      response=200, 

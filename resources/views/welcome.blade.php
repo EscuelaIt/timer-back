@@ -27,7 +27,7 @@
             <p class="flex items-center mb-8 w-full max-w-xl">
                 <img src="/images/tiempo-rapido.png" alt="timer" class="w-20 mr-6">
                 <span>
-                    Este es un API para el control del tiempo en proyectos.
+                    Este es un API sencillo para el control del tiempo en proyectos.
                 </span>
             </p>
             <dile-card title="Documentación" class="w-full max-w-xl">

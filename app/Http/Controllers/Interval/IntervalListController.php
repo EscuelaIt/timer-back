@@ -52,7 +52,7 @@ class IntervalListController extends Controller
         $user = Auth::user();
         return $this->sendSuccess(
             "Intervalos encontrados: {$user->intervals->count()}", 
-            $user->intervals
+            $user->intervals()->with(['categories'])->get()
         );
     }
 }

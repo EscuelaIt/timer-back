@@ -57,9 +57,7 @@ class IntervalDestroyController extends Controller
         if($user->cannot('delete', $interval)) {
             return $this->sendError('No estás autorizado para realizar esta acción', 403);
         }
-
-        throw new Exception("Fata eliminar las posibles categorías del intervalo");
-        
+        $interval->categories()->detach();
         $interval->delete();
 
         return $this->sendSuccess('Intervalo borrado', null);

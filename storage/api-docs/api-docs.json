@@ -688,6 +688,84 @@
                 ]
             }
         },
+        "/api/intervals/{id}/attach-category": {
+            "post": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Gestionar categorías de intervalos de trabajo",
+                "description": "Añadir o eliminar la asociación de una categoría a un intervalo de trabajo",
+                "operationId": "attachDetachCategoryInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IntervalIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Información sobre la categoría y el estado que se pretende aplicar al intervalo.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "description": "Identificador de la categoría.",
+                                        "type": "integer"
+                                    },
+                                    "attached": {
+                                        "description": "Determina si está adjunto o no. Si no se proporciona, se considera 'false'.",
+                                        "type": "boolean",
+                                        "default": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría asociada o desasociada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/intervals/{id}": {
             "get": {
                 "tags": [
@@ -913,7 +991,7 @@
                     "interval"
                 ],
                 "summary": "Añadir un intervalo de trabajo",
-                "description": "Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. El intervalo se creará con el inicio del instante actual. Se puede entregar opcionalmente un proyecto.",
+                "description": "Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. El intervalo se creará con el inicio del instante actual y sin horario de finalización. Se puede entregar opcionalmente un proyecto.",
                 "operationId": "createInterval",
                 "parameters": [
                     {

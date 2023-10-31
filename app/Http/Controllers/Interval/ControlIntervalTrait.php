@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Interval;
 
 use App\Models\Project;
+use App\Models\Category;
 
 trait ControlIntervalTrait {
+
   protected $intervalValidationRules = [
     'project_id' => 'nullable|integer|exists:customers,id'
+  ];
+
+  protected $intervalCategoryValidationRules = [
+    'category_id' => 'required|integer|exists:customers,id',
+    'attached' => 'nullable|boolean',
   ];
 
   protected function getIntervalUpdateValidationRules() {
@@ -26,5 +33,16 @@ trait ControlIntervalTrait {
       return false;
     }
     return $user->can('update', $project);
+  }
+
+  protected function isCategoryIdValid($user, $category) {
+    if(! $category) {
+      return false;
+    }
+    $category = Category::find($category);
+    if(! $category) {
+      return false;
+    }
+    return $user->can('update', $category);
   }
 }

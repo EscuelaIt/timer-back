@@ -26,6 +26,7 @@ use App\Http\Controllers\Interval\IntervalUpdateController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 use App\Http\Controllers\Interval\IntervalDestroyController;
+use App\Http\Controllers\Interval\IntervalAttachCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,4 +78,5 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
     Route::get('/{id}', [IntervalShowController::class, 'show']);
     Route::put('/{id}', [IntervalUpdateController::class, 'update']);
     Route::delete('/{id}', [IntervalDestroyController::class, 'destroy']);
+    Route::post('/{id}/attach-category', [IntervalAttachCategoryController::class, 'attachCategory']);
 });

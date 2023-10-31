@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: Figtree, sans-serif;
+  background-color: #f4f4f4;
+  --dile-nav-background-color: rgb(37 99 235);
+}
+h1 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+a, a:visited {
+  color: #03d;
+}

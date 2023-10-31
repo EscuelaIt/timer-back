@@ -934,6 +934,62 @@
                 ]
             }
         },
+        "/api/intervals/finalize": {
+            "get": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Finalizar el intervalo abierto",
+                "description": "Finaliza el intervalo que hay abierto, si es que encuentra alguno",
+                "operationId": "finalizeInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El intervalo abierto ha finalizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Interval"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/intervals": {
             "get": {
                 "tags": [
@@ -1392,17 +1448,6 @@
                     "user_id": {
                         "description": "Identificador del usuario asociado. Clave foránea que referencia a la entidad User. Se extrae automáticamente del usuario autenticado, no hace falta indicarlo.",
                         "type": "integer"
-                    }
-                },
-                "type": "object"
-            },
-            "IntervalCreation": {
-                "required": [],
-                "properties": {
-                    "project_id": {
-                        "description": "Opcional. Identificador del proyecto al que se asigna el intervalo de trabajo. Puede ser null si no hay proyecto asignado",
-                        "type": "integer",
-                        "nullable": true
                     }
                 },
                 "type": "object"

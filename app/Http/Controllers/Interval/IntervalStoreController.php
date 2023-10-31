@@ -93,6 +93,11 @@ class IntervalStoreController extends Controller
             return $this->sendError('No estás autorizado para trabajar con ese proyecto', 403);
          }
 
+         if($user->hasOpenInterval) {
+            return $this->sendError('No puedes abrir otro intervalo, finaliza antes el que tienes abierto', 403);
+         }
+
+
          $dateTimeManager = new DateTimeManager();
  
          $interval = Interval::create([
@@ -100,6 +105,8 @@ class IntervalStoreController extends Controller
              'project_id' => $request->project_id,
              'start_time' => $dateTimeManager->getNow(),
          ]);
+
+         $interval->load('categories');
  
          return $this->sendSuccess(
              'El intervalo de trabajo se ha creado',

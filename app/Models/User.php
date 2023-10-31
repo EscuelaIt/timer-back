@@ -64,4 +64,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getHasOpenIntervalAttribute() {
+        return $this->intervals()->whereNull('end_time')->count() > 0;
+    }
 }

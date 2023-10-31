@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
+use App\Http\Controllers\Interval\IntervalEndController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
@@ -75,6 +76,7 @@ Route::prefix('/categories')->middleware('auth:sanctum')->group(function() {
 Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
     Route::get('', [IntervalListController::class, 'index']);
     Route::post('', [IntervalStoreController::class, 'store']);
+    Route::get('/finalize', [IntervalEndController::class, 'finalize']);
     Route::get('/{id}', [IntervalShowController::class, 'show']);
     Route::put('/{id}', [IntervalUpdateController::class, 'update']);
     Route::delete('/{id}', [IntervalDestroyController::class, 'destroy']);

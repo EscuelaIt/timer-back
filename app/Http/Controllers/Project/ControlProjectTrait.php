@@ -13,6 +13,9 @@ trait ControlProjectTrait {
 
   protected function isCustomerIdValid($user, $customerId) {
     $customer = Customer::find($customerId);
+    if(! $customer) {
+      return false;
+    }
     return $user->can('update', $customer);
   }
 }

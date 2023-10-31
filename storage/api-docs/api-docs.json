@@ -688,6 +688,292 @@
                 ]
             }
         },
+        "/api/intervals/{id}": {
+            "get": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Obtener un intervalo de trabajo concreto",
+                "description": "Obtener un objeto de un intervalo de trabajo que corresponda con un identificador dado",
+                "operationId": "getInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IntervalIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Interval"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Actualiza un intervalo de trabajo",
+                "description": "Actualizar un intervalo de trabajo que corresponda con un identificador dado",
+                "operationId": "updateInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IntervalIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del intervalo de trabajo a actualizar",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Interval"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Interval"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Borrar un intervalo de trabajo",
+                "description": "Borrar un intervalo de trabajo indicado en el identificador de la URL",
+                "operationId": "deleteInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IntervalIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El intervalo de trabajo se ha borrado"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/intervals": {
+            "get": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Obtener la lista de los intervalos de trabajo de un usuario",
+                "description": "Devuelve un array de objetos Interval que haya dado de alta un usuario",
+                "operationId": "getUserIntervals",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de intervalos de trabajo enviada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Interval"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Añadir un intervalo de trabajo",
+                "description": "Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. El intervalo se creará con el inicio del instante actual. Se puede entregar opcionalmente un proyecto.",
+                "operationId": "createInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Para crear el intervalo de trabajo solo se envía opcionalmente el identificador de proyecto, si es que hay.",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/IntervalCreation"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El intervalo de trabajo se ha creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Interval"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/projects/{id}": {
             "get": {
                 "tags": [
@@ -983,11 +1269,11 @@
                 ],
                 "properties": {
                     "id": {
-                        "description": "ID único del projecto. Al crear o actualizar no se usará el identificador",
+                        "description": "ID único de la categoría. Al crear o actualizar no se usará el identificador",
                         "type": "integer"
                     },
                     "name": {
-                        "description": "Nombre del projecto",
+                        "description": "Nombre de la categoría",
                         "type": "string"
                     },
                     "user_id": {
@@ -1022,6 +1308,46 @@
                     "user_id": {
                         "description": "Identificador del usuario asociado. Clave foránea que referencia a la entidad User. Se extrae automáticamente del usuario autenticado, no hace falta indicarlo.",
                         "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "IntervalCreation": {
+                "required": [],
+                "properties": {
+                    "project_id": {
+                        "description": "Opcional. Identificador del proyecto al que se asigna el intervalo de trabajo. Puede ser null si no hay proyecto asignado",
+                        "type": "integer",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Interval": {
+                "required": [],
+                "properties": {
+                    "id": {
+                        "description": "ID único del intervalo de trabajo. Al crear o actualizar no se usará el identificador",
+                        "type": "integer"
+                    },
+                    "start_time": {
+                        "description": "Fecha y hora de inicio del intervalo de trabajo",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "end_time": {
+                        "description": "Fecha y hora de fin del intervalo de trabajo",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user_id": {
+                        "description": "Identificador del usuario dueño. Clave foránea que referencia a la entidad User. Este campo no es necesario indicarlo porque se obtiene del usuario autenticado",
+                        "type": "integer"
+                    },
+                    "project_id": {
+                        "description": "Identificador del proyecto al que se asigna el intervalo de trabajo. Puede ser null si no hay proyecto asignado",
+                        "type": "integer",
+                        "nullable": true
                     }
                 },
                 "type": "object"
@@ -1209,6 +1535,15 @@
                 "name": "id",
                 "in": "path",
                 "description": "ID del cliente que se desea obtener",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "IntervalIdParameter": {
+                "name": "id",
+                "in": "path",
+                "description": "ID del intervalo que se desea obtener",
                 "required": true,
                 "schema": {
                     "type": "integer"

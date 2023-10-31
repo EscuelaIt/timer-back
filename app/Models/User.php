@@ -29,6 +29,11 @@ class User extends Authenticatable
         return $this->hasMany(Category::class);
     }
 
+    public function intervals(): HasMany
+    {
+        return $this->hasMany(Interval::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

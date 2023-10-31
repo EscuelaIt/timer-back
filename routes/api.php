@@ -13,14 +13,19 @@ use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
+use App\Http\Controllers\Interval\IntervalListController;
+use App\Http\Controllers\Interval\IntervalShowController;
 use App\Http\Controllers\Project\ProjectUpdateController;
 use App\Http\Controllers\Category\CategoryStoreController;
 use App\Http\Controllers\Customer\CustomerStoreController;
+use App\Http\Controllers\Interval\IntervalStoreController;
 use App\Http\Controllers\Project\ProjectDestroyController;
 use App\Http\Controllers\Category\CategoryUpdateController;
 use App\Http\Controllers\Customer\CustomerUpdateController;
+use App\Http\Controllers\Interval\IntervalUpdateController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
+use App\Http\Controllers\Interval\IntervalDestroyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +69,12 @@ Route::prefix('/categories')->middleware('auth:sanctum')->group(function() {
     Route::get('/{id}', [CategoryShowController::class, 'show']);
     Route::put('/{id}', [CategoryUpdateController::class, 'update']);
     Route::delete('/{id}', [CategoryDestroyController::class, 'destroy']);
+});
+
+Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
+    Route::get('', [IntervalListController::class, 'index']);
+    Route::post('', [IntervalStoreController::class, 'store']);
+    Route::get('/{id}', [IntervalShowController::class, 'show']);
+    Route::put('/{id}', [IntervalUpdateController::class, 'update']);
+    Route::delete('/{id}', [IntervalDestroyController::class, 'destroy']);
 });

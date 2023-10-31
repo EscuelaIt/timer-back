@@ -16,5 +16,10 @@ class Project extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+
+    public function intervals(): HasMany
+    {
+        return $this->hasMany(Interval::class);
+    }
     
 }

@@ -10,12 +10,12 @@ use OpenApi\Annotations as OA;
  *     @OA\Property(
  *         property="id",
  *         type="integer",
- *         description="ID único del projecto. Al crear o actualizar no se usará el identificador"
+ *         description="ID único de la categoría. Al crear o actualizar no se usará el identificador"
  *     ),
  *     @OA\Property(
  *         property="name",
  *         type="string",
- *         description="Nombre del projecto"
+ *         description="Nombre de la categoría"
  *     ),
  *     @OA\Property(
  *         property="user_id",

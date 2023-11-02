@@ -58,7 +58,7 @@ class IntervalEndController extends Controller
         $user = Auth::user();
 
         $interval = $user->intervals()->whereNull('end_time')->first();
-        info($interval);
+
         if(! $interval) {
             return $this->sendError('No tienes un intervalo abierto', 400);
         }

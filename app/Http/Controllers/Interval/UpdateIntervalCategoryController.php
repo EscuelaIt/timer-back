@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Interval\ControlIntervalTrait;
 
-class IntervalAttachCategoryController extends Controller
+class UpdateIntervalCategoryController extends Controller
 {
     use ApiFeedbackSender, ControlIntervalTrait;
 

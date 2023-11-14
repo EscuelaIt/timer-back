@@ -8,18 +8,18 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
-use App\Http\Controllers\Interval\IntervalEndController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
 use App\Http\Controllers\Interval\IntervalListController;
+use App\Http\Controllers\Interval\IntervalOpenController;
 use App\Http\Controllers\Interval\IntervalShowController;
 use App\Http\Controllers\Project\ProjectUpdateController;
 use App\Http\Controllers\Category\CategoryStoreController;
 use App\Http\Controllers\Customer\CustomerStoreController;
-use App\Http\Controllers\Interval\IntervalStoreController;
+use App\Http\Controllers\Interval\IntervalCloseController;
 use App\Http\Controllers\Project\ProjectDestroyController;
 use App\Http\Controllers\Category\CategoryUpdateController;
 use App\Http\Controllers\Customer\CustomerUpdateController;
@@ -27,7 +27,7 @@ use App\Http\Controllers\Interval\IntervalUpdateController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 use App\Http\Controllers\Interval\IntervalDestroyController;
-use App\Http\Controllers\Interval\IntervalAttachCategoryController;
+use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,10 +75,10 @@ Route::prefix('/categories')->middleware('auth:sanctum')->group(function() {
 
 Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
     Route::get('', [IntervalListController::class, 'index']);
-    Route::post('', [IntervalStoreController::class, 'store']);
-    Route::get('/finalize', [IntervalEndController::class, 'finalize']);
+    Route::post('', [IntervalOpenController::class, 'store']);
+    Route::get('/finalize', [IntervalCloseController::class, 'finalize']);
     Route::get('/{id}', [IntervalShowController::class, 'show']);
     Route::put('/{id}', [IntervalUpdateController::class, 'update']);
     Route::delete('/{id}', [IntervalDestroyController::class, 'destroy']);
-    Route::post('/{id}/attach-category', [IntervalAttachCategoryController::class, 'attachCategory']);
+    Route::post('/{id}/attach-category', [UpdateIntervalCategoryController::class, 'attachCategory']);
 });

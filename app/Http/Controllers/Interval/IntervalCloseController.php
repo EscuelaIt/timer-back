@@ -8,7 +8,7 @@ use App\Lib\ApiFeedbackSender;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class IntervalEndController extends Controller
+class IntervalCloseController extends Controller
 {
     use ApiFeedbackSender;
 

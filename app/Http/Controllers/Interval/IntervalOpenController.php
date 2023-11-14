@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Interval\ControlIntervalTrait;
 
-class IntervalStoreController extends Controller
+class IntervalOpenController extends Controller
 {
     use ApiFeedbackSender, ControlIntervalTrait;
     

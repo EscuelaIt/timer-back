@@ -34,8 +34,17 @@
                     </span>
                 </p>
                 <dile-card title="Documentación" class="w-full max-w-xl">
-                    <p class="mb-6">La documentación del API se encuentra en el siguiente enlace:</p>
-                    <a href="/api/documentation">https://timer.escuelait.com/api/documentation</a>
+                    <p class="mb-6">La documentación del API la puedes ver en:
+                        <ul>
+                            <li class="flex items-center">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#66dddd"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                <a href="https://github.com/EscuelaIt/time-register/">Modelo de dominio y casos de uso</a>
+                            </li>
+                            <li class="flex items-center">
+                                <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="#66dddd"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                <a href="/api/documentation">Documentación de los endpoints del API</a>
+                            </li>
+                        </ul>
                 </dile-card>
             </section>
         </div>

@@ -70,28 +70,33 @@ class CategoryStoreController extends Controller
     
      public function store(Request $request)
      {
-         $user = Auth::user();
+        $user = Auth::user();
  
-         if($user->cannot('create', Category::class)) {
-             return $this->sendError('No estás autorizado para realizar esta acción', 403);
-         }
- 
-         $validateCategory = Validator::make($request->all(), $this->categoryValidationRules);
-         if($validateCategory->fails()){
-             return $this->sendValidationError(
-                 'Ha ocurrido un error de validación',
-                 $validateCategory->errors()
-             );
-         }
- 
-         $category = Category::create([
-             'name' => $request->name,
-             'user_id' => $user->id,
-         ]);
- 
-         return $this->sendSuccess(
-             'La categoria se ha creado',
-             $category
-         );
-     }
+        if($user->cannot('create', Category::class)) {
+            return $this->sendError('No estás autorizado para realizar esta acción', 403);
+        }
+
+        $validateCategory = Validator::make($request->all(), $this->categoryValidationRules);
+        if($validateCategory->fails()){
+            return $this->sendValidationError(
+                'Ha ocurrido un error de validación',
+                $validateCategory->errors()
+            );
+        }
+
+        $category = Category::create([
+            'name' => $request->name,
+            'user_id' => $user->id,
+        ]);
+
+        // Otra alternativa de crear la categoría
+        //  $category = $user->categories()->create([
+        //     'name' => $request->name,
+        //  ]);
+
+        return $this->sendSuccess(
+            'La categoria se ha creado',
+            $category
+        );
+    }
 }

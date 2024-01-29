@@ -8,11 +8,11 @@ use App\Models\Category;
 trait ControlIntervalTrait {
 
   protected $intervalValidationRules = [
-    'project_id' => 'nullable|integer|exists:customers,id'
+    'project_id' => 'nullable|integer|exists:projects,id'
   ];
 
   protected $intervalCategoryValidationRules = [
-    'category_id' => 'required|integer|exists:customers,id',
+    'category_id' => 'required|integer|exists:categories,id',
     'attached' => 'nullable|boolean',
   ];
 

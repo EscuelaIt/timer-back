@@ -72,6 +72,6 @@ class CategoryShowController extends Controller
              return $this->sendError('No estás autorizado para realizar esta acción', 403);
          }
  
-         return $this->sendSuccess('Categoria encontrado', $category);
+         return $this->sendSuccess('Categoria encontrada', $category);
      }
 }

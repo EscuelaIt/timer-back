@@ -63,7 +63,7 @@ class IntervalShowController extends Controller
      {
          $user = Auth::user();
  
-         $interval = Interval::where('id', $id)->with(['categories'])->get();
+         $interval = Interval::where('id', $id)->with(['categories'])->first();
          if(! $interval) {
              return $this->sendError('No existe este intervalo de trabajo', 404);
          }

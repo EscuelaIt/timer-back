@@ -402,6 +402,48 @@
                 ]
             }
         },
+        "/api/countries": {
+            "get": {
+                "tags": [
+                    "country"
+                ],
+                "summary": "Obtener la lista de países",
+                "description": "Devuelve un array de objetos Country",
+                "operationId": "getCountries",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de países enviada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Country"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                }
+            }
+        },
         "/api/customers/{id}": {
             "get": {
                 "tags": [
@@ -688,18 +730,15 @@
                 ]
             }
         },
-        "/api/intervals/{id}/attach-category": {
-            "post": {
+        "/api/intervals/finalize": {
+            "get": {
                 "tags": [
                     "interval"
                 ],
-                "summary": "Gestionar categorías de intervalos de trabajo",
-                "description": "Añadir o eliminar la asociación de una categoría a un intervalo de trabajo",
-                "operationId": "attachDetachCategoryInterval",
+                "summary": "Finalizar el intervalo abierto",
+                "description": "Finaliza el intervalo que hay abierto, si es que encuentra alguno",
+                "operationId": "finalizeInterval",
                 "parameters": [
-                    {
-                        "$ref": "#/components/parameters/IntervalIdParameter"
-                    },
                     {
                         "$ref": "#/components/parameters/acceptJsonHeader"
                     },
@@ -707,31 +746,9 @@
                         "$ref": "#/components/parameters/requestedWith"
                     }
                 ],
-                "requestBody": {
-                    "description": "Información sobre la categoría y el estado que se pretende aplicar al intervalo.",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "category_id": {
-                                        "description": "Identificador de la categoría.",
-                                        "type": "integer"
-                                    },
-                                    "attached": {
-                                        "description": "Determina si está adjunto o no. Si no se proporciona, se considera 'false'.",
-                                        "type": "boolean",
-                                        "default": false
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
-                        "description": "Categoría asociada o desasociada con éxito",
+                        "description": "El intervalo abierto ha finalizado",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -739,6 +756,12 @@
                                         "message": {
                                             "description": "Mensaje de respuesta",
                                             "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Interval"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -746,13 +769,10 @@
                             }
                         }
                     },
-                    "400": {
-                        "$ref": "#/components/responses/ValidationErrorResponse"
-                    },
                     "403": {
                         "$ref": "#/components/responses/NotAuthorizedResponse"
                     },
-                    "401": {
+                    "400": {
                         "$ref": "#/components/responses/UnauthenticatedResponse"
                     },
                     "500": {
@@ -934,62 +954,6 @@
                 ]
             }
         },
-        "/api/intervals/finalize": {
-            "get": {
-                "tags": [
-                    "interval"
-                ],
-                "summary": "Finalizar el intervalo abierto",
-                "description": "Finaliza el intervalo que hay abierto, si es que encuentra alguno",
-                "operationId": "finalizeInterval",
-                "parameters": [
-                    {
-                        "$ref": "#/components/parameters/acceptJsonHeader"
-                    },
-                    {
-                        "$ref": "#/components/parameters/requestedWith"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "El intervalo abierto ha finalizado",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "description": "Mensaje de respuesta",
-                                            "type": "string"
-                                        },
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "$ref": "#/components/schemas/Interval"
-                                            }
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "$ref": "#/components/responses/NotAuthorizedResponse"
-                    },
-                    "400": {
-                        "$ref": "#/components/responses/UnauthenticatedResponse"
-                    },
-                    "500": {
-                        "description": "Error de servidor"
-                    }
-                },
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ]
-            }
-        },
         "/api/intervals": {
             "get": {
                 "tags": [
@@ -1087,6 +1051,84 @@
                                         },
                                         "data": {
                                             "$ref": "#/components/schemas/Interval"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/NotAuthorizedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                },
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/intervals/{id}/attach-category": {
+            "post": {
+                "tags": [
+                    "interval"
+                ],
+                "summary": "Gestionar categorías de intervalos de trabajo",
+                "description": "Añadir o eliminar la asociación de una categoría a un intervalo de trabajo",
+                "operationId": "attachDetachCategoryInterval",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/IntervalIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Información sobre la categoría y el estado que se pretende aplicar al intervalo.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "category_id": {
+                                        "description": "Identificador de la categoría.",
+                                        "type": "integer"
+                                    },
+                                    "attached": {
+                                        "description": "Determina si está adjunto o no. Si no se proporciona, se considera 'false'.",
+                                        "type": "boolean",
+                                        "default": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Categoría asociada o desasociada con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
                                         }
                                     },
                                     "type": "object"
@@ -1419,6 +1461,30 @@
                     "user_id": {
                         "description": "Identificador del usuario dueño. Clave foránea que referencia a la entidad User. Este campo no es necesario indicarlo porque se obtiene del usuario autenticado",
                         "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Country": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único del país. Al crear o actualizar no se usará el identificador",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "Nombre del país",
+                        "type": "string"
+                    },
+                    "slug": {
+                        "description": "Slug del país",
+                        "type": "string"
+                    },
+                    "continent": {
+                        "description": "Continente del país",
+                        "type": "string"
                     }
                 },
                 "type": "object"

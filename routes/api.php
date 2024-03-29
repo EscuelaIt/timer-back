@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Country\CountryListController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
 use App\Http\Controllers\Project\ProjectStoreController;
@@ -82,3 +83,5 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
     Route::delete('/{id}', [IntervalDestroyController::class, 'destroy']);
     Route::post('/{id}/attach-category', [UpdateIntervalCategoryController::class, 'attachCategory']);
 });
+
+Route::get('/countries', [CountryListController::class, 'index']);

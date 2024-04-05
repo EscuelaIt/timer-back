@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Country\CountryListController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
+use App\Http\Controllers\Country\CountryStoreController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
@@ -84,4 +85,7 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
     Route::post('/{id}/attach-category', [UpdateIntervalCategoryController::class, 'attachCategory']);
 });
 
-Route::get('/countries', [CountryListController::class, 'index']);
+Route::prefix('/countries')->group(function() {
+    Route::get('/', [CountryListController::class, 'index']);
+    Route::post('/', [CountryStoreController::class, 'store']);
+});

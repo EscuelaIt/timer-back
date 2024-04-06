@@ -254,5 +254,6 @@ return [
         'username'                 => 'usuario',
         'value'                    => 'valor',
         'year'                     => 'año',
+        'continent'                => 'continente',
     ],
 ];

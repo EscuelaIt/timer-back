@@ -403,6 +403,52 @@
             }
         },
         "/api/countries/{id}": {
+            "get": {
+                "tags": [
+                    "country"
+                ],
+                "summary": "Obtener un país concreto",
+                "description": "Obtener un objeto de un país que corresponda con un identificador dado",
+                "operationId": "getCountry",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CountryIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Country"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                }
+            },
             "put": {
                 "tags": [
                     "country"

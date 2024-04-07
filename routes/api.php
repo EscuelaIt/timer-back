@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Country\CountryListController;
+use App\Http\Controllers\Country\CountryShowController;
 use App\Http\Controllers\Project\ProjectListController;
 use App\Http\Controllers\Project\ProjectShowController;
 use App\Http\Controllers\Country\CountryStoreController;
@@ -90,6 +91,7 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
 Route::prefix('/countries')->group(function() {
     Route::get('/', [CountryListController::class, 'index']);
     Route::post('/', [CountryStoreController::class, 'store']);
+    Route::get('/{id}', [CountryShowController::class, 'show']);
     Route::put('/{id}', [CountryUpdateController::class, 'update']);
     Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
 });

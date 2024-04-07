@@ -1,2 +1,2 @@
-import '@dile/dile-nav/dile-nav';
-import '@dile/dile-card/dile-card';
+import '@dile/ui/components/nav/nav';
+import '@dile/ui/components/card/card';

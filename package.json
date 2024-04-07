@@ -14,7 +14,6 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@dile/dile-card": "^1.1.1",
-        "@dile/dile-nav": "^1.0.4"
+        "@dile/ui": "^2.0.2"
     }
 }

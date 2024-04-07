@@ -25,8 +25,8 @@ class ResetDatabase extends Command
      */
     public function handle()
     {
-        $this->call('migrate:fresh --force');
-        $this->call('db:seed --force');
+        $this->call('migrate:fresh', ['--force' => true]);
+        $this->call('db:seed', ['--force' => true]);
 
         $this->info('Database has been refreshed and re-seeded.');
     }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Country\CountryStoreController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
+use App\Http\Controllers\Country\CountryUpdateController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
 use App\Http\Controllers\Interval\IntervalListController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Interval\IntervalOpenController;
 use App\Http\Controllers\Interval\IntervalShowController;
 use App\Http\Controllers\Project\ProjectUpdateController;
 use App\Http\Controllers\Category\CategoryStoreController;
+use App\Http\Controllers\Country\CountryDestroyController;
 use App\Http\Controllers\Customer\CustomerStoreController;
 use App\Http\Controllers\Interval\IntervalCloseController;
 use App\Http\Controllers\Project\ProjectDestroyController;
@@ -88,4 +90,6 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
 Route::prefix('/countries')->group(function() {
     Route::get('/', [CountryListController::class, 'index']);
     Route::post('/', [CountryStoreController::class, 'store']);
+    Route::put('/{id}', [CountryUpdateController::class, 'update']);
+    Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
 });

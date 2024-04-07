@@ -26,7 +26,7 @@ class CategoryUpdateController extends Controller
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="Datos del categoria a actualizar",
+     *      description="Datos de la categoria a actualizar",
      *      @OA\MediaType(
      *          mediaType="application/x-www-form-urlencoded",
      *          @OA\Schema(ref="#/components/schemas/Category")

@@ -193,7 +193,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Datos del categoria a actualizar",
+                    "description": "Datos de la categoria a actualizar",
                     "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -400,6 +400,98 @@
                         "BearerAuth": []
                     }
                 ]
+            }
+        },
+        "/api/countries/{id}": {
+            "put": {
+                "tags": [
+                    "country"
+                ],
+                "summary": "Actualiza un país",
+                "description": "Actualizar un país que corresponda con un identificador dado",
+                "operationId": "updateCountry",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CountryIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Datos del país a actualizar",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Country"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "Mensaje de respuesta",
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Country"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "country"
+                ],
+                "summary": "Borrar un país",
+                "description": "Borrar un país indicado en el identificador de la URL",
+                "operationId": "deleteCountry",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/CountryIdParameter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/acceptJsonHeader"
+                    },
+                    {
+                        "$ref": "#/components/parameters/requestedWith"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "El país se ha borrado"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "500": {
+                        "description": "Error de servidor"
+                    }
+                }
             }
         },
         "/api/countries": {
@@ -1775,6 +1867,15 @@
                 "name": "id",
                 "in": "path",
                 "description": "ID de la categoria que se desea obtener",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "CountryIdParameter": {
+                "name": "id",
+                "in": "path",
+                "description": "ID del país que se desea obtener",
                 "required": true,
                 "schema": {
                     "type": "integer"

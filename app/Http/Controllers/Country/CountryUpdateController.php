@@ -7,32 +7,34 @@ use Illuminate\Http\Request;
 use App\Lib\ApiFeedbackSender;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Country\ControlCountryTrait;
 
-class CountryStoreController extends Controller
+class CountryUpdateController extends Controller
 {
     use ApiFeedbackSender, ControlCountryTrait;
 
     /**
-     * @OA\Post(
-     *  path="/api/countries",
+     * @OA\Put(
+     *  path="/api/countries/{id}",
      *  tags={"country"},
-     *  summary="Añadir un país",
-     *  description="Crear un país en la tabla de países",
-     *  operationId="createCountry",
+     *  summary="Actualiza un país",
+     *  description="Actualizar un país que corresponda con un identificador dado",
+     *  operationId="updateCountry",
+     *  @OA\Parameter(ref="#/components/parameters/CountryIdParameter"),
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="Objeto de país a crear",
+     *      description="Datos del país a actualizar",
      *      @OA\MediaType(
      *          mediaType="application/x-www-form-urlencoded",
      *          @OA\Schema(ref="#/components/schemas/Country")
      *      )
      *  ),
      *  @OA\Response(
-     *      response=200, 
-     *      description="El país se ha creado con éxito",
-     *      @OA\JsonContent(
+     *     response=200,
+     *     description="Operación exitosa",
+     *     @OA\JsonContent(
      *         type="object",
      *         @OA\Property(property="message", type="string", description="Mensaje de respuesta"),
      *         @OA\Property(
@@ -41,19 +43,30 @@ class CountryStoreController extends Controller
      *         )
      *     ),
      *  ),
-     *  @OA\Response(
+     * @OA\Response(
      *      response=400,
      *      description="Error de validación",
      *      ref="#/components/responses/ValidationErrorResponse"
      *  ),
      *  @OA\Response(
+     *      response=404,
+     *      description="No existe ese país",
+     *      ref="#/components/responses/NotFoundResponse"
+     *  ),
+     *  @OA\Response(
      *      response=500,
      *      description="Error de servidor",
-     *  )
+     *  ),
      * )
      */
-    
-    public function store(Request $request) {
+
+    public function update(Request $request, string $id)
+    {
+        $country = Country::find($id);
+        if(! $country) {
+            return $this->sendError('No existe este país', 404);
+        }
+
         $validateCountry = Validator::make($request->all(), $this->countryValidationRules());
         if($validateCountry->fails()){
             return $this->sendValidationError(
@@ -62,15 +75,11 @@ class CountryStoreController extends Controller
             );
         }
 
-        $country = Country::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'continent' => $request->continent,
-        ]);
+        $country->name = $request->name;
+        $country->slug = $request->slug;
+        $country->continent = $request->continent;
+        $country->save();
 
-        return $this->sendSuccess(
-            'El país se ha creado',
-            $country
-        );
+        return $this->sendSuccess('País actualizado', $country);
     }
 }

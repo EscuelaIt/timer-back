@@ -22,14 +22,14 @@ class CategorySeeder extends Seeder
         ];
 
         foreach ($categoryNames as $categoryName) {
-            Category::factory()->create([
+            Category::create([
                 'name' => $categoryName,
                 'user_id' => 1,
             ]);
         }
 
         foreach ($categoryNames as $categoryName) {
-            Category::factory()->create([
+            Category::create([
                 'name' => $categoryName,
                 'user_id' => 2,
             ]);

@@ -5,7 +5,7 @@
 body {
   font-family: Figtree, sans-serif;
   background-color: #f4f4f4;
-  --dile-nav-background-color: rgb(37 99 235);
+  --dile-primary-color: rgb(37 99 235);
 }
 h1 {
   font-size: 1.2rem;
@@ -15,5 +15,5 @@ a, a:visited {
   color: #03d;
 }
 .navcontainer {
-  background-color: rgb(37 99 235);
+  background-color: var(--dile-primary-color);
 }

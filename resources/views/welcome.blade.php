@@ -47,6 +47,9 @@
                         </ul>
                 </dile-card>
 
+                <dile-info-box class="mt-8 w-full max-w-xl">
+                    Para el mantenimiento de la base de datos se resetearán todas las tablas a las 6:00 AM, horario de Madrid.
+                </dile-info-box>
                 
             </section>
         </div>

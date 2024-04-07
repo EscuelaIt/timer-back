@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CountrySeeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,9 +17,19 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Miguel',
+            'email' => 'miguel@example.com',
+            'password' => Hash::make('1234qwer'),
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'John',
+            'email' => 'john@example.com',
+            'password' => Hash::make('secret1234'),
+        ]);
+
+        Category::factory()->count(10)->create();
+
+        $this->call(CountrySeeder::class);
     }
 }

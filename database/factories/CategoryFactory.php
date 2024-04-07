@@ -21,9 +21,10 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => $this->faker->word, // Genera una palabra aleatoria.
-            'user_id' => User::inRandomOrder()->first()->id, // Obtiene el ID de un usuario aleatorio.
-        ];
+        return [];
+        // return [
+        //     'name' => $this->faker->word, // Genera una palabra aleatoria.
+        //     'user_id' => User::inRandomOrder()->first()->id, // Obtiene el ID de un usuario aleatorio.
+        // ];
     }
 }

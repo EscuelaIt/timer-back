@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CountrySeeder;
+use Database\Seeders\CategorySeeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('secret1234'),
         ]);
 
-        Category::factory()->count(10)->create();
+        $this->call(CategorySeeder::class);
 
         $this->call(CountrySeeder::class);
     }

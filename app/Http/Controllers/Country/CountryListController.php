@@ -41,6 +41,7 @@ class CountryListController extends Controller
      */
     public function index()
     {
+        sleep(1);
         $user = Auth::user();
         $countries = Country::orderBy('name', 'asc')->get();
         return $this->sendSuccess(

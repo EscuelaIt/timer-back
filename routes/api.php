@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Auth\GetUserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Country\CountryListController;
 use App\Http\Controllers\Country\CountryShowController;
@@ -45,9 +46,7 @@ use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/auth/user', [GetUserController::class, 'getUser']);
 
 
 Route::post('/auth/register', [RegisterController::class, 'registerUser']);

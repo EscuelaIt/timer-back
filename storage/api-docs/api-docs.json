@@ -1589,6 +1589,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/requestedWith"
+                    },
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Filtrar proyectos por nombre",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {

@@ -21,5 +21,9 @@ class Project extends Model
     {
         return $this->hasMany(Interval::class);
     }
+
+    public function scopeWithName($query, $name) {
+        return $query->where('projects.name', 'LIKE', "%{$name}%");
+    }
     
 }

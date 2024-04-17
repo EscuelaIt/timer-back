@@ -21,6 +21,15 @@ class ProjectListController extends Controller
      *  operationId="getUserProjects",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
+     *  @OA\Parameter(
+     *      name="keyword",
+     *      in="query",
+     *      description="Filtrar proyectos por nombre",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Lista de proyectos enviada con éxito",
@@ -49,12 +58,20 @@ class ProjectListController extends Controller
      * )
      */
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+
+        $projects = $user->projects();
+        if ($request->has('keyword')) {
+            $projects = $projects->withName($request->get('keyword'));
+        }
+
+        $projects = $projects->get();
+        
         return $this->sendSuccess(
-            "Projectos encontrados: {$user->projects->count()}", 
-            $user->projects
+            "Projectos encontrados: {$projects->count()}", 
+            $projects
         );
     }
 }

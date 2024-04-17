@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,10 +49,12 @@ class Interval extends Model
 
     public function getSecondsOpenedAttribute()
     {
+        $now = Carbon::now('UTC');
         // Comprobar si end_time es null
         if ($this->end_time === null) {
             // end_time es null, calculamos los segundos desde start_time hasta ahora
-            return now()->diffInSeconds($this->start_time);
+            $startTime = $this->start_time->setTimezone('UTC');
+            return $now->diffInSeconds($startTime);
         }
 
         // end_time no es null, el intervalo está abierto, devolvemos null

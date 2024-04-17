@@ -1219,6 +1219,15 @@
                     },
                     {
                         "$ref": "#/components/parameters/requestedWith"
+                    },
+                    {
+                        "name": "opened",
+                        "in": "query",
+                        "description": "Si el valor es 'true' indica que debe devolver intervalos abiertos.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
                 ],
                 "responses": {

@@ -20,6 +20,15 @@ class IntervalListController extends Controller
      *  operationId="getUserIntervals",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
+     *  @OA\Parameter(
+     *      name="opened",
+     *      in="query",
+     *      description="Si el valor es 'true' indica que debe devolver intervalos abiertos.",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="boolean"
+     *      )
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Lista de intervalos de trabajo enviada con éxito",
@@ -47,12 +56,21 @@ class IntervalListController extends Controller
      *  }
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+     
+        $query = $user->intervals()->with(['categories']);
+
+        if ($request->has('opened') && $request->get('opened') == 'true') {
+            $query->whereNull('end_time');
+        }
+
+        $intervals = $query->get();
+
         return $this->sendSuccess(
-            "Intervalos encontrados: {$user->intervals->count()}", 
-            $user->intervals()->with(['categories'])->get()
+            "Intervalos encontrados: {$intervals->count()}", 
+            $intervals
         );
     }
 }

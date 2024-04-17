@@ -20,6 +20,15 @@ class CustomerListController extends Controller
      *  operationId="getUserCustomers",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
+     *  @OA\Parameter(
+     *      name="keyword",
+     *      in="query",
+     *      description="Filtrar clientes por nombre",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="string"
+     *      )
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Lista de clientes enviada con éxito",
@@ -47,12 +56,20 @@ class CustomerListController extends Controller
      *  }
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+
+        $customers = $user->customers();
+        if ($request->has('keyword')) {
+            $customers = $customers->withName($request->get('keyword'));
+        }
+
+        $customers = $customers->get();
+
         return $this->sendSuccess(
-            "Clientes encontrados: {$user->customers->count()}", 
-            $user->customers
+            "Clientes encontrados: {$customers->count()}", 
+            $customers
         );
     }
 }

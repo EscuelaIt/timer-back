@@ -29,4 +29,8 @@ class Customer extends Model
         }
         return false;
     }
+
+    public function scopeWithName($query, $name) {
+        return $query->where('name', 'LIKE', "%{$name}%");
+    }
 }

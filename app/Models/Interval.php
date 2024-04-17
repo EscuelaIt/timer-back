@@ -13,7 +13,7 @@ class Interval extends Model
 
     protected $fillable = ['user_id', 'project_id', 'start_time'];
 
-    protected $appends = ['start_time_utc', 'end_time_utc'];
+    protected $appends = ['start_time_utc', 'end_time_utc', 'seconds_opened'];
 
     public function user(): BelongsTo
     {
@@ -44,5 +44,17 @@ class Interval extends Model
             return $this->end_time->format('Y-m-d H:i:s');
         }
         return '';
+    }
+
+    public function getSecondsOpenedAttribute()
+    {
+        // Comprobar si end_time es null
+        if ($this->end_time === null) {
+            // end_time es null, calculamos los segundos desde start_time hasta ahora
+            return now()->diffInSeconds($this->start_time);
+        }
+
+        // end_time no es null, el intervalo está abierto, devolvemos null
+        return null;
     }
 }

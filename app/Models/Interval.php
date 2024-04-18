@@ -48,16 +48,17 @@ class Interval extends Model
     }
 
     public function getSecondsOpenedAttribute()
-    {
-        $now = Carbon::now('UTC');
-        // Comprobar si end_time es null
+    {    
         if ($this->end_time === null) {
             // end_time es null, calculamos los segundos desde start_time hasta ahora
+            $now = Carbon::now('UTC');
             $startTime = $this->start_time->setTimezone('UTC');
             return $now->diffInSeconds($startTime);
+        } else {
+            // calculamos los segundos desde start_time hasta end_time
+            $startTime = $this->start_time->setTimezone('UTC');
+            $EndTime = $this->end_time->setTimezone('UTC');
+            return $EndTime->diffInSeconds($startTime);
         }
-
-        // end_time no es null, el intervalo está abierto, devolvemos null
-        return null;
     }
 }

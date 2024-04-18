@@ -29,6 +29,16 @@ class IntervalListController extends Controller
      *          type="boolean"
      *      )
      *  ),
+     *  @OA\Parameter(
+     *      name="project_id",
+     *      in="query",
+     *      description="Filtrar intervalos por ID de proyecto específico.",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="integer",
+     *          format="int64"
+     *      )
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Lista de intervalos de trabajo enviada con éxito",
@@ -64,6 +74,10 @@ class IntervalListController extends Controller
 
         if ($request->has('opened') && $request->get('opened') == 'true') {
             $query->whereNull('end_time');
+        }
+
+        if ($request->has('project_id') && is_numeric($request->get('project_id'))) {
+            $query->where('project_id', '=', $request->get('project_id'));
         }
 
         $intervals = $query->get();

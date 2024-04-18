@@ -1228,6 +1228,16 @@
                         "schema": {
                             "type": "boolean"
                         }
+                    },
+                    {
+                        "name": "project_id",
+                        "in": "query",
+                        "description": "Filtrar intervalos por ID de proyecto específico.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
                     }
                 ],
                 "responses": {

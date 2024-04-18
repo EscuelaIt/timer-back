@@ -70,7 +70,7 @@ class IntervalListController extends Controller
     {
         $user = Auth::user();
      
-        $query = $user->intervals()->with(['categories']);
+        $query = $user->intervals()->with(['categories', 'project']);
 
         if ($request->has('opened') && $request->get('opened') == 'true') {
             $query->whereNull('end_time');

@@ -11,4 +11,9 @@ class Country extends Model
 
     protected $fillable = ['name', 'slug', 'continent'];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
 }

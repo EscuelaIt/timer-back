@@ -1023,8 +1023,11 @@
                     "403": {
                         "$ref": "#/components/responses/NotAuthorizedResponse"
                     },
-                    "400": {
+                    "401": {
                         "$ref": "#/components/responses/UnauthenticatedResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ValidationErrorResponse"
                     },
                     "500": {
                         "description": "Error de servidor"

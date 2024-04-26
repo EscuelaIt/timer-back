@@ -40,9 +40,14 @@ class IntervalCloseController extends Controller
      *      ref="#/components/responses/NotAuthorizedResponse"
      *  ),
      *  @OA\Response(
+     *      response=401,
+     *      description="No estás autenticado",
+     *      ref="#/components/responses/UnauthenticatedResponse"
+     *  ),
+     *  @OA\Response(
      *      response=400,
      *      description="No hay intervalos que finalizar",
-     *      ref="#/components/responses/UnauthenticatedResponse"
+     *      ref="#/components/responses/ValidationErrorResponse"
      *  ),
      *  @OA\Response(
      *      response=500,

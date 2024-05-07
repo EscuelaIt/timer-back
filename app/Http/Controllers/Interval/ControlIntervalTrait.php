@@ -8,7 +8,9 @@ use App\Models\Category;
 trait ControlIntervalTrait {
 
   protected $intervalValidationRules = [
-    'project_id' => 'nullable|integer|exists:projects,id'
+    'project_id' => 'nullable|integer|exists:projects,id',
+    'start_time' => 'nullable|date_format:Y-m-d H:i:s',
+    'end_time' => 'nullable|date_format:Y-m-d H:i:s|after_or_equal:start_time',
   ];
 
   protected $intervalCategoryValidationRules = [
@@ -20,7 +22,7 @@ trait ControlIntervalTrait {
     $rules = [];
     $rules['project_id'] = $this->intervalValidationRules['project_id'];
     $rules['start_time'] = 'required|date_format:Y-m-d H:i:s';
-    $rules['end_time'] = 'nullable|date_format:Y-m-d H:i:s';
+    $rules['end_time'] = $this->intervalValidationRules['end_time'];
     return $rules; 
   }
 

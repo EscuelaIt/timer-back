@@ -20,21 +20,17 @@ class IntervalOpenController extends Controller
      *  path="/api/intervals",
      *  tags={"interval"},
      *  summary="Añadir un intervalo de trabajo",
-     *  description="Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. El intervalo se creará con el inicio del instante actual y sin horario de finalización. Se puede entregar opcionalmente un proyecto.",
+     *  description="Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. Si no se envía proyecto, se crea el intervalo sin proyecto. Si no se envía start_time el intervalo se creará con el inicio del instante actual. Si no se envía start_time se desconsidera el end_time. Si no se envía end_time el intervalo se crea sin horario de finalización.",
      *  operationId="createInterval",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="Para crear el intervalo de trabajo solo se envía opcionalmente el identificador de proyecto, si es que hay.",
-     *      @OA\JsonContent(
-     *         type="object",
-     *         @OA\Property(
-     *             property="project_id",
-     *             type="integer",
-     *             description="Identificador del proyecto, opcional."
-     *         ),
-     *     )
+     *      description="Para crear el intervalo de trabajo todos los campos son opcionales.",
+     *      @OA\MediaType(
+     *          mediaType="application/x-www-form-urlencoded",
+     *          @OA\Schema(ref="#/components/schemas/Interval")
+     *      )
      *  ),
      *  @OA\Response(
      *      response=200, 
@@ -99,11 +95,19 @@ class IntervalOpenController extends Controller
 
 
          $dateTimeManager = new DateTimeManager();
- 
+         
+         $start_time = $request->start_time ?? $dateTimeManager->getNow();
+         $end_time = null;
+         if($request->start_time) {
+            $end_time = $request->end_time ?? null;
+         }
+         info($end_time);
+
          $interval = Interval::create([
              'user_id' => $user->id,
              'project_id' => $request->project_id,
-             'start_time' => $dateTimeManager->getNow(),
+             'start_time' => $start_time,
+             'end_time' => $end_time,
          ]);
 
          $interval->load('categories');

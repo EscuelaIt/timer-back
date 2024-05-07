@@ -1284,7 +1284,7 @@
                     "interval"
                 ],
                 "summary": "Añadir un intervalo de trabajo",
-                "description": "Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. El intervalo se creará con el inicio del instante actual y sin horario de finalización. Se puede entregar opcionalmente un proyecto.",
+                "description": "Crear un nuevo intervalo de trabajo en la base de datos asociado a un usuario. Si no se envía proyecto, se crea el intervalo sin proyecto. Si no se envía start_time el intervalo se creará con el inicio del instante actual. Si no se envía start_time se desconsidera el end_time. Si no se envía end_time el intervalo se crea sin horario de finalización.",
                 "operationId": "createInterval",
                 "parameters": [
                     {
@@ -1295,18 +1295,12 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Para crear el intervalo de trabajo solo se envía opcionalmente el identificador de proyecto, si es que hay.",
+                    "description": "Para crear el intervalo de trabajo todos los campos son opcionales.",
                     "required": true,
                     "content": {
-                        "application/json": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
-                                "properties": {
-                                    "project_id": {
-                                        "description": "Identificador del proyecto, opcional.",
-                                        "type": "integer"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/Interval"
                             }
                         }
                     }

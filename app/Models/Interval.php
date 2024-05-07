@@ -12,7 +12,7 @@ class Interval extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'project_id', 'start_time'];
+    protected $fillable = ['user_id', 'project_id', 'start_time', 'end_time'];
 
     protected $appends = ['start_time_utc', 'end_time_utc', 'seconds_opened'];
 

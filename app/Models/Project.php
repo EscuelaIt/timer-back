@@ -10,11 +10,16 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'customer_id'];
+    protected $fillable = ['name', 'description', 'customer_id', 'user_id'];
 
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function intervals(): HasMany

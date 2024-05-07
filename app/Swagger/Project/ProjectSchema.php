@@ -6,7 +6,7 @@ use OpenApi\Annotations as OA;
 /**
  * @OA\Schema(
  *     schema="Project",
- *     required={"name", "customer_id"},
+ *     required={"name"},
  *     @OA\Property(
  *         property="id",
  *         type="integer",
@@ -22,10 +22,11 @@ use OpenApi\Annotations as OA;
  *         type="string",
  *         description="Descripción del proyecto"
  *     ),
-*      @OA\Property(
+ *      @OA\Property(
  *         property="customer_id",
  *         type="integer",
- *         description="Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer"
+ *         nullable=true,
+ *         description="Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer. Es opcional, por lo que se pueden crear proyectos sin clientes."
  *     ),
  * )
  */

@@ -1657,7 +1657,7 @@
                     "project"
                 ],
                 "summary": "Crear un proyecto",
-                "description": "Crear un proyecto en la base de datos asociado a un cliente",
+                "description": "Crear un proyecto en la base de datos asociado a un usuario. Si se desea, se puede enviar también un cliente, en cuyo caso el proyecto se creará para ese cliente en particular. Si no se envía el cliente, se setea como null.",
                 "operationId": "createProject",
                 "parameters": [
                     {
@@ -1668,7 +1668,7 @@
                     }
                 ],
                 "requestBody": {
-                    "description": "Objeto de proyecto a crear",
+                    "description": "Datos del proyecto a crear",
                     "required": true,
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -1825,8 +1825,7 @@
             },
             "Project": {
                 "required": [
-                    "name",
-                    "customer_id"
+                    "name"
                 ],
                 "properties": {
                     "id": {
@@ -1842,8 +1841,9 @@
                         "type": "string"
                     },
                     "customer_id": {
-                        "description": "Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer",
-                        "type": "integer"
+                        "description": "Identificador del cliente asociado. Clave foránea que referencia a la entidad Customer. Es opcional, por lo que se pueden crear proyectos sin clientes.",
+                        "type": "integer",
+                        "nullable": true
                     }
                 },
                 "type": "object"

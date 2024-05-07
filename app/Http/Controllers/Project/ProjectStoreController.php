@@ -20,13 +20,13 @@ class ProjectStoreController extends Controller
      *  path="/api/projects",
      *  tags={"project"},
      *  summary="Crear un proyecto",
-     *  description="Crear un proyecto en la base de datos asociado a un cliente",
+     *  description="Crear un proyecto en la base de datos asociado a un usuario. Si se desea, se puede enviar también un cliente, en cuyo caso el proyecto se creará para ese cliente en particular. Si no se envía el cliente, se setea como null.",
      *  operationId="createProject",
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Parameter(ref="#/components/parameters/requestedWith"),
      *  @OA\RequestBody(
      *      required=true,
-     *      description="Objeto de proyecto a crear",
+     *      description="Datos del proyecto a crear",
      *      @OA\MediaType(
      *          mediaType="application/x-www-form-urlencoded",
      *          @OA\Schema(ref="#/components/schemas/Project")
@@ -93,6 +93,7 @@ class ProjectStoreController extends Controller
              'name' => $request->name,
              'description' => $request->description,
              'customer_id' => $request->customer_id,
+             'user_id' => $user->id,
          ]);
  
          return $this->sendSuccess(

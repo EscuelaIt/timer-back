@@ -19,9 +19,9 @@ class User extends Authenticatable
         return $this->hasMany(Customer::class);
     }
 
-    public function projects(): HasManyThrough
+    public function projects(): HasMany
     {
-        return $this->hasManyThrough(Project::class, Customer::class);
+        return $this->hasMany(Project::class);
     }
 
     public function categories(): HasMany

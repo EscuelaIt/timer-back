@@ -111,7 +111,8 @@ class IntervalOpenController extends Controller
          ]);
 
          $interval->load('categories');
- 
+         $interval->load('project');
+          
          return $this->sendSuccess(
              'El intervalo de trabajo se ha creado',
              $interval

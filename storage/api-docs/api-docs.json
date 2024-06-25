@@ -600,6 +600,15 @@
                 "operationId": "getCountries",
                 "parameters": [
                     {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Palabra clave para filtrar países por nombre",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/acceptJsonHeader"
                     }
                 ],

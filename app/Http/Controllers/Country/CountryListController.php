@@ -19,6 +19,13 @@ class CountryListController extends Controller
      *  summary="Obtener la lista de países",
      *  description="Devuelve un array de objetos Country",
      *  operationId="getCountries",
+     *  @OA\Parameter(
+     *      name="keyword",
+     *      in="query",
+     *      description="Palabra clave para filtrar países por nombre",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *  ),
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Response(
      *      response=200,
@@ -42,8 +49,16 @@ class CountryListController extends Controller
     public function index()
     {
         sleep(1);
-        $user = Auth::user();
-        $countries = Country::orderBy('name', 'asc')->get();
+        
+        $keyword = $request->query('keyword');
+        if ($keyword) {
+            $countries = Country::where('name', 'like', '%' . $keyword . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+        } else {
+            $countries = Country::orderBy('name', 'asc')->get();
+        }
+
         return $this->sendSuccess(
             "Países encontrados: {$countries->count()}", 
             $countries

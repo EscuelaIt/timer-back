@@ -32,5 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
 
         $this->call(CountrySeeder::class);
+        
+        $this->call(BoardGamesSeeder::class);
     }
 }

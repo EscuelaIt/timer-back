@@ -30,6 +30,7 @@ use App\Http\Controllers\Project\ProjectDestroyController;
 use App\Http\Controllers\Category\CategoryUpdateController;
 use App\Http\Controllers\Customer\CustomerUpdateController;
 use App\Http\Controllers\Interval\IntervalUpdateController;
+use App\Http\Controllers\BoardGames\BoardGameListController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 use App\Http\Controllers\Interval\IntervalDestroyController;
@@ -94,3 +95,13 @@ Route::prefix('/countries')->group(function() {
     Route::put('/{id}', [CountryUpdateController::class, 'update']);
     Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
 });
+
+
+Route::prefix('/board-games')->group(function() {
+    Route::get('/', [BoardGameListController::class, 'search']);
+    // Route::post('/', [CountryStoreController::class, 'store']);
+    // Route::get('/{id}', [CountryShowController::class, 'show']);
+    // Route::put('/{id}', [CountryUpdateController::class, 'update']);
+    // Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
+});
+

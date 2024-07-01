@@ -46,6 +46,6 @@ class CountryDestroyController extends Controller
 
         $country->delete();
 
-        return $this->sendSuccess('Intervalo borrado', null);
+        return $this->sendSuccess('País borrado', null);
     }
 }

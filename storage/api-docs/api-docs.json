@@ -609,6 +609,51 @@
                         }
                     },
                     {
+                        "name": "sortField",
+                        "in": "query",
+                        "description": "Campo por el cual ordenar la lista de países",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sortDirection",
+                        "in": "query",
+                        "description": "Dirección de ordenamiento (asc o desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": "asc"
+                        }
+                    },
+                    {
+                        "name": "filters",
+                        "in": "query",
+                        "description": "Filtros adicionales para la lista de países",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Nombre del filtro",
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "description": "Valor del filtro",
+                                        "type": "string"
+                                    },
+                                    "active": {
+                                        "description": "Estado del filtro (true o false)",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    {
                         "$ref": "#/components/parameters/acceptJsonHeader"
                     }
                 ],

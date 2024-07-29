@@ -26,6 +26,35 @@ class CountryListController extends Controller
      *      required=false,
      *      @OA\Schema(type="string")
      *  ),
+     *  @OA\Parameter(
+     *      name="sortField",
+     *      in="query",
+     *      description="Campo por el cual ordenar la lista de países",
+     *      required=false,
+     *      @OA\Schema(type="string")
+     *  ),
+     *  @OA\Parameter(
+     *      name="sortDirection",
+     *      in="query",
+     *      description="Dirección de ordenamiento (asc o desc)",
+     *      required=false,
+     *      @OA\Schema(type="string", default="asc")
+     *  ),
+     *  @OA\Parameter(
+     *      name="filters",
+     *      in="query",
+     *      description="Filtros adicionales para la lista de países",
+     *      required=false,
+     *      @OA\Schema(
+     *          type="array",
+     *          @OA\Items(
+     *              type="object",
+     *              @OA\Property(property="name", type="string", description="Nombre del filtro"),
+     *              @OA\Property(property="value", type="string", description="Valor del filtro"),
+     *              @OA\Property(property="active", type="string", description="Estado del filtro (true o false)")
+     *          )
+     *      )
+     *  ),
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),
      *  @OA\Response(
      *      response=200,

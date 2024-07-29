@@ -51,13 +51,23 @@ class CountryListController extends Controller
         sleep(1);
         
         $keyword = $request->query('keyword');
+        $sortField = $request->query('sortField');
+        $sortDirection = $request->query('sortDirection') ?? 'asc';
+        $filters = $request->query('filters');
+
+        $query = Country::select('*');
         if ($keyword) {
-            $countries = Country::where('name', 'like', '%' . $keyword . '%')
-                ->orderBy('name', 'asc')
-                ->get();
-        } else {
-            $countries = Country::orderBy('name', 'asc')->get();
+            $query = $query->where('name', 'like', '%' . $keyword . '%');
         }
+        if($sortField) {
+            $query = $query->orderBy($sortField, $sortDirection);
+        }
+        foreach($filters as $filter) {
+            if($filter['active'] != 'false' && $filter['name'] == 'continent') {
+                $query = $query->where('continent', $filter['value']);
+            }
+        }
+        $countries = $query->get();
 
         return $this->sendSuccess(
             "Países encontrados: {$countries->count()}", 

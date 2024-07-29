@@ -43,16 +43,11 @@ class CountryListController extends Controller
      *  @OA\Parameter(
      *      name="filters",
      *      in="query",
-     *      description="Filtros adicionales para la lista de países",
+     *      description="Array de filtros adicionales para la lista de países: [{ name: string, value: string, active: true/false}, ...]",
      *      required=false,
      *      @OA\Schema(
      *          type="array",
-     *          @OA\Items(
-     *              type="object",
-     *              @OA\Property(property="name", type="string", description="Nombre del filtro"),
-     *              @OA\Property(property="value", type="string", description="Valor del filtro"),
-     *              @OA\Property(property="active", type="string", description="Estado del filtro (true o false)")
-     *          )
+     *          @OA\Items(ref="#/components/schemas/Filter")
      *      )
      *  ),
      *  @OA\Parameter(ref="#/components/parameters/acceptJsonHeader"),

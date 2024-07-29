@@ -630,26 +630,12 @@
                     {
                         "name": "filters",
                         "in": "query",
-                        "description": "Filtros adicionales para la lista de países",
+                        "description": "Array de filtros adicionales para la lista de países: [{ name: string, value: string, active: true/false}, ...]",
                         "required": false,
                         "schema": {
                             "type": "array",
                             "items": {
-                                "properties": {
-                                    "name": {
-                                        "description": "Nombre del filtro",
-                                        "type": "string"
-                                    },
-                                    "value": {
-                                        "description": "Valor del filtro",
-                                        "type": "string"
-                                    },
-                                    "active": {
-                                        "description": "Estado del filtro (true o false)",
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
+                                "$ref": "#/components/schemas/Filter"
                             }
                         }
                     },
@@ -1844,6 +1830,23 @@
                     "user_id": {
                         "description": "Identificador del usuario asociado. Clave foránea que referencia a la entidad User. Se extrae automáticamente del usuario autenticado, no hace falta indicarlo.",
                         "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Filter": {
+                "properties": {
+                    "name": {
+                        "description": "Nombre del filtro",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "Valor del filtro",
+                        "type": "string"
+                    },
+                    "active": {
+                        "description": "Estado del filtro (true o false)",
+                        "type": "string"
                     }
                 },
                 "type": "object"

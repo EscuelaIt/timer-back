@@ -77,7 +77,7 @@ class CountryListController extends Controller
         $keyword = $request->query('keyword');
         $sortField = $request->query('sortField');
         $sortDirection = $request->query('sortDirection') ?? 'asc';
-        $filters = $request->query('filters');
+        $filters = $request->query('filters', []);
 
         $query = Country::select('*');
         if ($keyword) {

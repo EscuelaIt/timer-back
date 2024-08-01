@@ -15,6 +15,7 @@ use App\Http\Controllers\Country\CountryStoreController;
 use App\Http\Controllers\Project\ProjectStoreController;
 use App\Http\Controllers\Category\CategoryListController;
 use App\Http\Controllers\Category\CategoryShowController;
+use App\Http\Controllers\Country\CountryActionController;
 use App\Http\Controllers\Country\CountryUpdateController;
 use App\Http\Controllers\Customer\CustomerListController;
 use App\Http\Controllers\Customer\CustomerShowController;
@@ -36,6 +37,8 @@ use App\Http\Controllers\BoardGame\BoardGameStoreController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 use App\Http\Controllers\Interval\IntervalDestroyController;
+use App\Http\Controllers\BoardGame\BoardGameActionController;
+use App\Http\Controllers\BoardGame\BoardGameAllIdsController;
 use App\Http\Controllers\BoardGame\BoardGameUpdateController;
 use App\Http\Controllers\BoardGame\BoardGameDestroyController;
 use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
@@ -98,14 +101,18 @@ Route::prefix('/countries')->group(function() {
     Route::get('/{id}', [CountryShowController::class, 'show']);
     Route::put('/{id}', [CountryUpdateController::class, 'update']);
     Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
+    Route::post('/action', [CountryActionController::class , 'handleAction']);
 });
 
 
 Route::prefix('/board-games')->group(function() {
     Route::get('/', [BoardGameListController::class, 'search']);
     Route::post('/', [BoardGameStoreController::class, 'store']);
+    Route::get('/allids', [BoardGameAllIdsController::class , 'allids']);
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
     Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
+    Route::post('/action', [BoardGameActionController::class , 'handleAction']);
+
 });
 

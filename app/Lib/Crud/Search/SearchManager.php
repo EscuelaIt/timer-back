@@ -41,6 +41,11 @@ abstract class SearchManager {
         return $this->query->get()->pluck('slug');
     }
 
+    public function getAllIds() {
+        $this->applySearch();
+        return $this->query->get()->pluck('id');
+    }
+
     private function applySearch() {
         $this->getSearchData();
         $this->query = $this->createQuery();

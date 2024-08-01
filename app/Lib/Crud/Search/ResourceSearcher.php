@@ -21,8 +21,8 @@ trait ResourceSearcher {
 
   public function allids(Request $request) {
     $searchManager = new $this->searchManagerClass($request);
-    $slugs = $searchManager->getAllSlugs();
-    return $this->sendSuccess($slugs);
+    $ids = $searchManager->getAllIds();
+    return $this->sendSuccess('All ids', $ids);
   }
 
 }

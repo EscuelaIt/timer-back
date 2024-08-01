@@ -8,7 +8,7 @@ use App\Lib\ApiFeedbackSender;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Controllers\BoardGames\ControlBoardGameTrait;
+use App\Http\Controllers\BoardGame\ControlBoardGameTrait;
 
 class BoardGameStoreController extends Controller
 {
@@ -16,12 +16,6 @@ class BoardGameStoreController extends Controller
 
     public function store(Request $request)
      {
-         $user = Auth::user();
- 
-         if($user->cannot('create', BoardGame::class)) {
-            return $this->sendError('No estás autorizado para realizar esta acción', 403);
-         }
- 
          $validateBoardGame = Validator::make($request->all(), $this->boardGameValidationRules);
          if($validateBoardGame->fails()){
              return $this->sendValidationError(

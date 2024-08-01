@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\BoardGames;
+namespace App\Http\Controllers\BoardGame;
 
 use App\Models\Country;
 

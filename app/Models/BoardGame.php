@@ -16,6 +16,8 @@ class BoardGame extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['slug', 'name', 'year', 'country_id'];
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

@@ -15,13 +15,9 @@ class BoardGameSearchManager extends SearchManager {
         foreach($this->searchData['filters'] as $filter) {
             //info($filter);
             if($filter["active"] && $filter["active"] != 'false') {
-                if($filter["name"] == 'bgg_id') {
-                    //info('estoy en filter name = public_id: ' . $filter["value"]);
-                    $this->query->where('bgg_id', $filter["value"]);
-                }
-                if($filter["name"] == 'favorited') {
-                    //info('estoy en filter favorited' . $filter["value"]);
-                    $this->query->favorited();
+                if($filter["name"] == 'essential') {
+                    //info('estoy en filter essential' . $filter["value"]);
+                    $this->query->isEssential();
                 }
                 if($filter["name"] == 'complexity') {
                     //info('estoy en filter complexity' . $filter["value"]);

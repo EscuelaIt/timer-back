@@ -16,7 +16,7 @@ class BoardGame extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['slug', 'name', 'year', 'country_id'];
+    protected $fillable = ['slug', 'name', 'year', 'country_id', 'essential'];
 
     public function country(): BelongsTo
     {
@@ -34,6 +34,10 @@ class BoardGame extends Model
         return $query->where(function($query) use ($keyword) {
             $query->where('name', 'like', "%{$keyword}%");
         });
+    }
+
+    public function scopeIsEssential($query) {
+        return $query->where('essential', true);
     }
 }
 

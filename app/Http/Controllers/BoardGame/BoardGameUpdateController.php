@@ -31,6 +31,7 @@ class BoardGameUpdateController extends Controller
         $boardGame->slug = $request->slug;
         $boardGame->year = $request->year;
         $boardGame->country_id = $request->country_id;
+        $boardGame->essential = $request->essential ?? false;
         $boardGame->save();
 
         return $this->sendSuccess('juego de mesa actualizado', $boardGame);

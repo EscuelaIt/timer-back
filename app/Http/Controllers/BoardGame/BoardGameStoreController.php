@@ -29,6 +29,7 @@ class BoardGameStoreController extends Controller
              'name' => $request->name,
              'year' => $request->year,
              'country_id' => $request->country_id,
+             'essential' => $request->essential ?? false,
          ]);
  
          return $this->sendSuccess(

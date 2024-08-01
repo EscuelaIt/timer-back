@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\BoardGames;
+namespace App\Http\Controllers\BoardGame;
 
 use Illuminate\Http\Request;
 use App\Lib\ApiFeedbackSender;

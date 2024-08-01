@@ -36,6 +36,8 @@ use App\Http\Controllers\BoardGame\BoardGameStoreController;
 use App\Http\Controllers\Category\CategoryDestroyController;
 use App\Http\Controllers\Customer\CustomerDestroyController;
 use App\Http\Controllers\Interval\IntervalDestroyController;
+use App\Http\Controllers\BoardGame\BoardGameUpdateController;
+use App\Http\Controllers\BoardGame\BoardGameDestroyController;
 use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
 
 /*
@@ -103,7 +105,7 @@ Route::prefix('/board-games')->group(function() {
     Route::get('/', [BoardGameListController::class, 'search']);
     Route::post('/', [BoardGameStoreController::class, 'store']);
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
-    // Route::put('/{id}', [CountryUpdateController::class, 'update']);
-    // Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
+    Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
+    Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
 });
 

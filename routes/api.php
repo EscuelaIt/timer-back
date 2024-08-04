@@ -98,10 +98,10 @@ Route::prefix('/intervals')->middleware('auth:sanctum')->group(function() {
 Route::prefix('/countries')->group(function() {
     Route::get('/', [CountryListController::class, 'index']);
     Route::post('/', [CountryStoreController::class, 'store']);
+    Route::post('/action', [CountryActionController::class , 'handleAction']);
     Route::get('/{id}', [CountryShowController::class, 'show']);
     Route::put('/{id}', [CountryUpdateController::class, 'update']);
     Route::delete('/{id}', [CountryDestroyController::class, 'destroy']);
-    Route::post('/action', [CountryActionController::class , 'handleAction']);
 });
 
 
@@ -109,10 +109,10 @@ Route::prefix('/board-games')->group(function() {
     Route::get('/', [BoardGameListController::class, 'search']);
     Route::post('/', [BoardGameStoreController::class, 'store']);
     Route::get('/allids', [BoardGameAllIdsController::class , 'allids']);
+    Route::post('/action', [BoardGameActionController::class , 'handleAction']);
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
     Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
-    Route::post('/action', [BoardGameActionController::class , 'handleAction']);
 
 });
 

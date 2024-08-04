@@ -6,10 +6,17 @@ use App\Actions\CrudAction;
 
 class DeleteAction extends CrudAction {   
     public function handle() {
+        info('handle');
         $numDeleted = 0;
         $deleteElems = []; 
         foreach($this->models as $model) {
-            info('Deleting model: ' . $model->id);
+            info('borrando el modelo model: ' . $model->id);
+            if (method_exists($model, 'cleanModelTask')) {
+                info('invocar tareas de limpieza');
+                $model->cleanModelTask();
+            } else {
+                info('no encontré el método');
+            }
             $model->delete();
             $deleteElems[] = $model->id;
             $numDeleted++;

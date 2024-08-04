@@ -16,4 +16,7 @@ class Country extends Model
         'updated_at',
     ];
 
+    public function boardGames() {
+        return $this->hasMany(BoardGame::class);
+    }
 }

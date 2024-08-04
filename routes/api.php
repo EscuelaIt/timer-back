@@ -113,6 +113,5 @@ Route::prefix('/board-games')->group(function() {
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
     Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
-
 });
 

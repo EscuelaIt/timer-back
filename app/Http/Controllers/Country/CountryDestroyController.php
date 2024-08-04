@@ -43,7 +43,7 @@ class CountryDestroyController extends Controller
         if(! $country) {
             return $this->sendError('No existe este país', 404);
         }
-
+        $country->boardGames()->update(['country_id' => null]);
         $country->delete();
 
         return $this->sendSuccess('País borrado', null);

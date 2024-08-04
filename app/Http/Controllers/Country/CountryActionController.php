@@ -39,6 +39,7 @@ class CountryActionController extends Controller
         $deleteElems = []; 
         foreach($this->models as $model) {
             info('Deleting model: ' . $model->id);
+            $model->boardGames()->update(['country_id' => null]);
             $model->delete();
             $deleteElems[] = $model->id;
             $numDeleted++;

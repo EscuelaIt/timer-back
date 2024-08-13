@@ -39,6 +39,10 @@ class BoardGame extends Model
     public function scopeIsEssential($query) {
         return $query->where('essential', true);
     }
+
+    public function fromCountry($query, $countryId) {
+        return $query->where('country_id', $country);
+    }
 }
 
 

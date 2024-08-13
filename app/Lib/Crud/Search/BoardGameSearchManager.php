@@ -40,11 +40,9 @@ class BoardGameSearchManager extends SearchManager {
     protected function applyCustomRelationship() {
         $belongsTo = $this->searchData['belongsTo'];
         $relationId = $this->searchData['relationId'];
-        if($belongsTo == 'publisher') {
-            $this->query->fromPublisherSlug($relationId);
-        }
-        if($belongsTo == 'category') {
-            $this->query->fromCategorySlug($relationId);
+        info('aplicando relacion ' . $belongsTo . ' con ' . $relationId);
+        if($belongsTo == 'country') {
+            $this->query->fromCountry($relationId);
         }
     }
 }

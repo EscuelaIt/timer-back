@@ -31,6 +31,8 @@ class CountryActionController extends Controller
             return $this->handleDelete();
         } elseif($request->type == 'SetEurope') {
             return $this->handleSetEurope();
+        } elseif($request->type == 'SetAsia') {
+            return $this->handleSetAsia();
         } else {
             return $this->sendError('Acción no válida para países');   
         }
@@ -68,6 +70,21 @@ class CountryActionController extends Controller
             "Cambiado el continente a Europa",
             [
                 'action' => "SetEurope",
+                'data' => [],
+            ]
+        );
+    }
+
+    public function handleSetAsia() {
+        foreach($this->models as $model) {
+            info('seting Asia model: ' . $model->id);
+            $model->continent = "Asia";
+            $model->save();
+        }
+        return $this->sendSuccess(
+            "Cambiado el continente a Asia",
+            [
+                'action' => "SetAsia",
                 'data' => [],
             ]
         );

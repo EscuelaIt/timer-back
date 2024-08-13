@@ -41,7 +41,7 @@ class BoardGame extends Model
     }
 
     public function scopeFromCountry($query, $countryId) {
-        return $query->where('country_id', $country);
+        return $query->where('country_id', $countryId);
     }
 }
 

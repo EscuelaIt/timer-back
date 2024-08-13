@@ -28,13 +28,15 @@ class CountryActionController extends Controller
         $this->models = Country::whereIn('id', $request->relatedIds)->get();
 
         if($request->type == 'DeleteAction') {
-            return $this->handle();
+            return $this->handleDelete();
+        } elseif($request->type == 'SetEurope') {
+            return $this->handleSetEurope();
         } else {
             return $this->sendError('Acción no válida para países');   
         }
     }
 
-    public function handle() {
+    public function handleDelete() {
         $numDeleted = 0;
         $deleteElems = []; 
         foreach($this->models as $model) {
@@ -52,6 +54,21 @@ class CountryActionController extends Controller
                     'delete_count' => $numDeleted,
                     'delete_elems' => $deleteElems,
                 ],
+            ]
+        );
+    }
+
+    public function handleSetEurope() {
+        foreach($this->models as $model) {
+            info('seting Europe model: ' . $model->id);
+            $model->continent = "Europe";
+            $model->save();
+        }
+        return $this->sendSuccess(
+            "Cambiado el continente a Europa",
+            [
+                'action' => "SetEurope",
+                'data' => [],
             ]
         );
     }

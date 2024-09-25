@@ -17,11 +17,11 @@ trait ActionHandler {
             'data' => ['present'],
         ]);
         if($validator->fails()) {
-            return $this->sendValidationError($validator->errors()->first());
+            return $this->sendError($validator->errors()->first(), 422);
         }
 
         if(! isset($this->actionTypes[$request->type])) {
-            return $this->sendValidationError('Tipo de acción no válida.');
+            return $this->sendError('Tipo de acción no válida.', 422);
         }
         
         $models = $this->queryModels($request->relatedIds);

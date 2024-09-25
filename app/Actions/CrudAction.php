@@ -25,7 +25,7 @@ abstract class CrudAction {
         if( $validationResult === true) {
             return $this->handle();
         } else {
-            return $this->sendError($validationResult);
+            return $this->sendValidationError($validationResult);
         }
     }
 

@@ -42,6 +42,7 @@ use App\Http\Controllers\BoardGame\BoardGameAllIdsController;
 use App\Http\Controllers\BoardGame\BoardGameUpdateController;
 use App\Http\Controllers\BoardGame\BoardGameDestroyController;
 use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
+use App\Http\Controllers\BoardGame\BoardGameChangeEssentialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,5 +114,6 @@ Route::prefix('/board-games')->group(function() {
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
     Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
+    Route::patch('/{id}/change-essential', [BoardGameChangeEssentialController::class, 'changeEssential']);
 });
 

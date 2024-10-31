@@ -23,6 +23,7 @@ use App\Http\Controllers\Interval\IntervalListController;
 use App\Http\Controllers\Interval\IntervalOpenController;
 use App\Http\Controllers\Interval\IntervalShowController;
 use App\Http\Controllers\Project\ProjectUpdateController;
+use App\Http\Controllers\BoardGame\GameMechanicController;
 use App\Http\Controllers\Category\CategoryStoreController;
 use App\Http\Controllers\Country\CountryDestroyController;
 use App\Http\Controllers\Customer\CustomerStoreController;
@@ -115,5 +116,7 @@ Route::prefix('/board-games')->group(function() {
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);
     Route::delete('/{id}', [BoardGameDestroyController::class, 'destroy']);
     Route::patch('/{id}/change-essential', [BoardGameChangeEssentialController::class, 'changeEssential']);
+    Route::get('/{id}/mechanics', [GameMechanicController::class, 'getGameMechanics']);
+    Route::post('/{id}/mechanics', [GameMechanicController::class, 'checkGameMechanics']);
 });
 

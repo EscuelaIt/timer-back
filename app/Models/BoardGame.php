@@ -23,6 +23,11 @@ class BoardGame extends Model
         return $this->belongsTo(Country::class);
     }
 
+    public function mechanics(): BelongsToMany
+    {
+        return $this->belongsToMany(Mechanic::class);
+    }
+
     /////////////////////////////////
     // SCOPES
     /////////////////////////////////

@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\CategorySeeder;
+use Database\Seeders\MechanicSeeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -32,7 +33,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
 
         $this->call(CountrySeeder::class);
-        
+
         $this->call(BoardGamesSeeder::class);
+
+        $this->call(MechanicSeeder::class);
     }
 }

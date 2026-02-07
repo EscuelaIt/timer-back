@@ -879,16 +879,16 @@
         },
         {
             "name": "escuelait/laravel-api-kit",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EscuelaIt/laravel-api-kit.git",
-                "reference": "7f1fc484a4fc631465b47c6f642f586573535588"
+                "reference": "56f6b827f5b108141c918207e77b1e11fe9a4e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EscuelaIt/laravel-api-kit/zipball/7f1fc484a4fc631465b47c6f642f586573535588",
-                "reference": "7f1fc484a4fc631465b47c6f642f586573535588",
+                "url": "https://api.github.com/repos/EscuelaIt/laravel-api-kit/zipball/56f6b827f5b108141c918207e77b1e11fe9a4e8e",
+                "reference": "56f6b827f5b108141c918207e77b1e11fe9a4e8e",
                 "shasum": ""
             },
             "require": {
@@ -937,9 +937,9 @@
             ],
             "support": {
                 "issues": "https://github.com/EscuelaIt/laravel-api-kit/issues",
-                "source": "https://github.com/EscuelaIt/laravel-api-kit/tree/v0.2.0"
+                "source": "https://github.com/EscuelaIt/laravel-api-kit/tree/v0.2.1"
             },
-            "time": "2026-02-07T08:51:10+00:00"
+            "time": "2026-02-07T17:58:52+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -10117,5 +10117,5 @@
         "php": "^8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }

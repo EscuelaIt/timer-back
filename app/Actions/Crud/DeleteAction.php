@@ -16,10 +16,8 @@ class DeleteAction extends CrudAction {
         }
         $message = ($numDeleted == 1 ? 'Borrado' : 'Borrados') . " $numDeleted " . ($numDeleted == 1 ? 'elemento' : 'elementos') . " con éxito";
         return $this->createActionResultSuccess($message, [
-            'data' => [
-                  'delete_count' => $numDeleted,
-                  'delete_elems' => $deleteElems,
-              ],
+            'delete_count' => $numDeleted,
+            'delete_elems' => $deleteElems,
         ]);
     }
 }

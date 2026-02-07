@@ -110,7 +110,7 @@ Route::prefix('/countries')->group(function() {
 Route::prefix('/board-games')->group(function() {
     Route::get('/', [BoardGameListController::class, 'search']);
     Route::post('/', [BoardGameStoreController::class, 'store']);
-    Route::get('/allids', [BoardGameAllIdsController::class , 'allids']);
+    Route::get('/allids', BoardGameAllIdsController::class);
     Route::post('/action', BoardGameActionController::class);
     Route::get('/{id}', [BoardGameShowController::class, 'show']);
     Route::put('/{id}', [BoardGameUpdateController::class, 'update']);

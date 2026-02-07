@@ -17,4 +17,8 @@ class BoardGameListService extends ListService {
         'belongsTo' => null,
         'relationId' => null,
     ];
+    protected function applyKeywordFilter(?string $keyword): void
+    {
+        $this->query->similar($keyword);
+    }
 }

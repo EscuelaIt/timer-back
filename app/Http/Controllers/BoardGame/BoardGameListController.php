@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\BoardGame;
 
-use Illuminate\Http\Request;
-use App\Lib\ApiFeedbackSender;
 use App\Http\Controllers\Controller;
-use App\Lib\Crud\Search\ResourceSearcher;
-use App\Lib\Crud\Search\BoardGameSearchManager;
+use App\Services\BoardGameListService;
+use EscuelaIT\APIKit\ResourceListable;
 
 class BoardGameListController extends Controller
 {
-    use ApiFeedbackSender, ResourceSearcher;
+    use ResourceListable;
 
-    protected $searchManagerClass = BoardGameSearchManager::class;
+    public function search(BoardGameListService $service) {
+        return $this->list($service);
+    }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'accepted'             => ':Attribute debe ser aceptado.',
     'accepted_if'          => ':Attribute debe ser aceptado cuando :other sea :value.',
@@ -124,16 +126,7 @@ return [
     'uploaded'             => 'Subir :attribute ha fallado.',
     'url'                  => ':Attribute debe ser una URL válida.',
     'uuid'                 => 'El campo :attribute debe ser un UUID válido.',
-    'custom' => [
-        'email' => [
-            'unique' => 'El :attribute ya ha sido registrado.',
-        ],
-        'password' => [
-            'min' => 'La :attribute debe contener más de :min caracteres',
-        ],
-    ],
-
-    'attributes' => [
+    'attributes'           => [
         'address'                  => 'dirección',
         'affiliate_url'            => 'URL de afiliado',
         'age'                      => 'edad',
@@ -149,6 +142,7 @@ return [
         'concept'                  => 'concepto',
         'conditions'               => 'condiciones',
         'content'                  => 'contenido',
+        'continent'                => 'continente',
         'country'                  => 'país',
         'cover'                    => 'cubierta',
         'created_at'               => 'creado el',
@@ -230,7 +224,7 @@ return [
         'short_text'               => 'texto corto',
         'size'                     => 'tamaño',
         'skills'                   => 'habilidades',
-        'slug'                     => 'slug',
+        'slug'                     => 'babosa',
         'specialization'           => 'especialización',
         'started_at'               => 'comenzó a las',
         'state'                    => 'estado',
@@ -254,6 +248,13 @@ return [
         'username'                 => 'usuario',
         'value'                    => 'valor',
         'year'                     => 'año',
-        'continent'                => 'continente',
+    ],
+    'custom'               => [
+        'email'    => [
+            'unique' => 'El :attribute ya ha sido registrado.',
+        ],
+        'password' => [
+            'min' => 'La :attribute debe contener más de :min caracteres',
+        ],
     ],
 ];

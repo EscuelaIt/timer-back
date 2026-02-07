@@ -74,4 +74,19 @@ class BoardGameActionTest extends TestCase
 
         $this->assertDatabaseHas('board_games', ['id' => $boardGame->id, 'essential' => true]);
     }
+
+     #[Test]
+    public function change_action_changes_name() {
+         $boardGame = BoardGame::factory()->create();
+          $response = $this->postJson('/api/board-games/action', [
+            'type' => 'DemoChangeNameAction',
+            'relatedIds' => [$boardGame->id],
+            'data' => [
+                'name' => 'Nuevo nombre',
+            ]
+        ]);
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('board_games', ['id' => $boardGame->id, 'name' => 'Nuevo nombre']);
+    }
 }

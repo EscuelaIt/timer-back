@@ -27,6 +27,32 @@
         <div class="mx-auto max-w-2xl">
             <section class="my-8 mx-6">
 
+                <!-- Email Verification Success Message -->
+                @if (session('verified'))
+                    <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start">
+                        <svg class="w-5 h-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <p class="text-green-800 font-medium">¡Email verificado correctamente!</p>
+                            <p class="text-green-700 text-sm mt-1">Tu cuenta está lista para usar.</p>
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Email Verification Resent Message -->
+                @if (session('resent'))
+                    <div class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start">
+                        <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 5v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zm-2 0H4v14h12V5z" clip-rule="evenodd"/>
+                        </svg>
+                        <div>
+                            <p class="text-blue-800 font-medium">Email de verificación reenviado</p>
+                            <p class="text-blue-700 text-sm mt-1">Revisa tu bandeja de entrada para completar la verificación.</p>
+                        </div>
+                    </div>
+                @endif
+
                 <p class="flex items-center mb-8 w-full max-w-xl">
                     <img src="/images/tiempo-rapido.png" alt="timer" class="w-20 mr-6">
                     <span>

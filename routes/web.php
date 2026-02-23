@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,9 @@ Route::get('/', function () {
 
 // Password reset view route
 Route::get('/password/reset/{token}', [PasswordResetController::class, 'show'])->name('password.reset');
+
+// Email verification route - signed URL, no auth required since signature provides validation
+Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])
+    ->middleware('signed')
+    ->name('verification.verify');
 

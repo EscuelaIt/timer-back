@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\GetUserController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\EmailVerificationApiController;
 use App\Http\Controllers\Country\CountryListController;
 use App\Http\Controllers\Country\CountryShowController;
 use App\Http\Controllers\Project\ProjectListController;
@@ -59,11 +60,11 @@ use App\Http\Controllers\BoardGame\BoardGameChangeEssentialController;
 
 Route::middleware('auth:sanctum')->get('/auth/user', [GetUserController::class, 'getUser']);
 
-
 Route::post('/auth/register', [RegisterController::class, 'registerUser']);
 Route::post('/auth/login', [LoginController::class, 'loginUser']);
 Route::post('/auth/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
 Route::post('/auth/reset-password', [ForgotPasswordController::class, 'resetPassword']);
+Route::middleware('auth:sanctum')->post('/auth/email/resend-verification', [EmailVerificationApiController::class, 'resend']);
 Route::middleware('auth:sanctum')->get('/auth/logout', [LogoutController::class, 'logoutUser']);
 
 Route::prefix('/customers')->middleware('auth:sanctum')->group(function() {

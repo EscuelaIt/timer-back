@@ -37,5 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BoardGamesSeeder::class);
 
         $this->call(MechanicSeeder::class);
+
+        $this->call(TagSeeder::class);
     }
 }

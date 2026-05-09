@@ -28,6 +28,11 @@ class BoardGame extends Model
         return $this->belongsToMany(Mechanic::class);
     }
 
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     /////////////////////////////////
     // SCOPES
     /////////////////////////////////

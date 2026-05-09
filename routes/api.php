@@ -46,6 +46,8 @@ use App\Http\Controllers\BoardGame\BoardGameUpdateController;
 use App\Http\Controllers\BoardGame\BoardGameDestroyController;
 use App\Http\Controllers\Interval\UpdateIntervalCategoryController;
 use App\Http\Controllers\BoardGame\BoardGameChangeEssentialController;
+use App\Http\Controllers\BoardGame\BoardGameTagController;
+use App\Http\Controllers\Tag\TagListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,5 +124,12 @@ Route::prefix('/board-games')->group(function() {
     Route::patch('/{id}/change-essential', [BoardGameChangeEssentialController::class, 'changeEssential']);
     Route::get('/{id}/mechanics', [GameMechanicController::class, 'getGameMechanics']);
     Route::post('/{id}/mechanics', [GameMechanicController::class, 'checkGameMechanics']);
+    Route::get('/{id}/tags', [BoardGameTagController::class, 'index']);
+    Route::post('/{id}/tags', [BoardGameTagController::class, 'attach']);
+    Route::delete('/{id}/tags/{tagId}', [BoardGameTagController::class, 'detach']);
+});
+
+Route::prefix('/tags')->group(function () {
+    Route::get('/', [TagListController::class, 'index']);
 });
 

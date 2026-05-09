@@ -5,8 +5,8 @@ namespace App\Http\Controllers\BoardGame;
 use App\Models\BoardGame;
 use Illuminate\Http\Request;
 use App\Lib\ApiFeedbackSender;
-use App\Lib\Tag\TagsAssociator;
 use App\Http\Controllers\Controller;
+use App\Lib\Tag\TagsAssociator;
 
 class BoardGameTagController extends Controller
 {
@@ -20,9 +20,7 @@ class BoardGameTagController extends Controller
             return $this->sendError('No se encuentra este juego', 404);
         }
 
-        $associator = new TagsAssociator($game);
-
-        return $this->sendSuccess('Board game tags', $associator->getTags());
+        return $this->sendSuccess('Board game tags', $game->tags);
     }
 
     public function attach(Request $request, $id)

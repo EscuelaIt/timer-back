@@ -26,14 +26,14 @@ class TagFilter extends CustomFilter
 
         if (is_array($value)) {
             $query->whereHas('tags', function (Builder $q) use ($value) {
-                $q->whereIn('id', $value);
+                $q->whereIn('tags.id', $value);
             });
 
             return;
         }
 
         $query->whereHas('tags', function (Builder $q) use ($value) {
-            $q->where('id', $value);
+            $q->where('tags.id', $value);
         });
     }
 }

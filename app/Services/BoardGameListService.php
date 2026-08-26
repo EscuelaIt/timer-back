@@ -21,4 +21,11 @@ class BoardGameListService extends ListService {
     {
         $this->query->similar($keyword);
     }
+
+    protected function customFilters(): array
+    {
+        return [
+            new \App\Filters\TagFilter(),
+        ];
+    }
 }
